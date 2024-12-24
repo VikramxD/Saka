@@ -12,9 +12,7 @@ Easy. Powerful. Enterprise-grade.
 ----
 
 **Video Super Resolution Enhancer API** is a cutting-edge solution to upscale, restore, and enhance videos using AI models. It offers flexibility and performance, ensuring seamless integration for developers and enterprises.  
-
-This API provides at least [2x better performance](#performance) compared to traditional methods with features like GPU autoscaling and noise reduction.    
-
+    
 <div align='center'>
   
 <pre>
