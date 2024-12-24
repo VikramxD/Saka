@@ -128,3 +128,81 @@ class VideoUpscaler:
             "output_path": str(output_path)
         }
 
+
+if __name__ == "__main__":
+    import argparse
+    from rich.console import Console
+    from rich.panel import Panel
+
+    console = Console()
+
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Real-ESRGAN Video Upscaler")
+    parser.add_argument(
+        "-i", "--input",
+        type=str,
+        required=True,
+        help="Path to input video file"
+    )
+    parser.add_argument(
+        "-m", "--model",
+        type=str,
+        default="realesr-animevideov3",
+        choices=["realesr-animevideov3", "RealESRGAN_x4plus", "RealESRGAN_x4plus_anime_6B"],
+        help="Model to use for upscaling"
+    )
+    parser.add_argument(
+        "-s", "--scale",
+        type=int,
+        default=2,
+        choices=[1, 2, 3, 4],
+        help="Upscaling factor"
+    )
+    parser.add_argument(
+        "--face-enhance",
+        action="store_true",
+        help="Enable face enhancement"
+    )
+
+    args = parser.parse_args()
+
+    try:
+        # Configure settings
+        settings = UpscalerSettings(
+            model_name=args.model,
+            scale_factor=args.scale,
+            face_enhance=args.face_enhance
+        )
+
+        # Display processing information
+        console.print(Panel.fit(
+            f"[bold green]Video Upscaling Configuration[/]\n"
+            f"Input: [cyan]{args.input}[/]\n"
+            f"Model: [cyan]{args.model}[/]\n"
+            f"Scale: [cyan]{args.scale}x[/]\n"
+            f"Face Enhancement: [cyan]{args.face_enhance}[/]",
+            title="Real-ESRGAN",
+            border_style="blue"
+        ))
+
+        # Initialize upscaler
+        upscaler = VideoUpscaler(settings)
+
+        # Process video
+        console.print("\n[bold yellow]Processing video...[/]")
+        result = upscaler.process_video(Path(args.input))
+
+        # Display results
+        console.print(Panel.fit(
+            f"[bold green]Processing Complete![/]\n"
+            f"Input Resolution: [cyan]{result['input_resolution']['width']}x{result['input_resolution']['height']}[/]\n"
+            f"Output Resolution: [cyan]{result['output_resolution']['width']}x{result['output_resolution']['height']}[/]\n"
+            f"Output Path: [cyan]{result['output_path']}[/]",
+            title="Results",
+            border_style="green"
+        ))
+
+    except Exception as e:
+        console.print(f"[bold red]Error:[/] {str(e)}", style="red")
+        exit(1)
+
