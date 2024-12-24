@@ -75,7 +75,7 @@
 ```
 ----
 
-### Proposed Stack
+### Stack
 
 - **RabbitMQ**: Robust message queue for handling requests.
 - **Prometheus + Grafana**: Self-hosted monitoring and visualization for metrics such as GPU utilization and latency.
