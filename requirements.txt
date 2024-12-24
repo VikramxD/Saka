@@ -75,7 +75,6 @@ pexpect==4.9.0
 pickleshare==0.7.5
 pillow==11.0.0
 pipreqs==0.5.0
--e file:///root/pixelupbench
 platformdirs==4.3.6
 prompt-toolkit==3.0.48
 protobuf==5.28.3
