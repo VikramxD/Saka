@@ -6,7 +6,6 @@
 &nbsp;
 
 <strong>Transform your videos with state-of-the-art AI upscaling.</strong>    
-Easy. Powerful. Enterprise-grade.    
 </div>
 
 ----
