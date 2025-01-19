@@ -97,10 +97,14 @@
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository with submodules:
 ```bash
-git clone https://github.com/yourusername/video-enhancer.git
-cd video-enhancer
+# Clone with submodules
+git clone --recursive https://github.com/yourusername/video-enhancer.git
+
+# Or if you've already cloned the repository:
+git submodule init
+git submodule update
 ```
 
 2. Install dependencies:
