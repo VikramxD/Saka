@@ -160,35 +160,12 @@ if status['status'] == 'COMPLETED':
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
-.\venv\Scripts\activate   # Windows
 ```
 
-2. Install development dependencies:
-```bash
-pip install -r requirements-dev.txt
-```
 
-3. Set up pre-commit hooks:
-```bash
-pre-commit install
-```
 
-### Running Tests
 
-```bash
-pytest tests/
-```
 
-### Environment Variables
-
-Create a `.env` file with the following variables:
-
-```env
-RABBITMQ_URL=amqp://guest:guest@localhost:5672/
-S3_BUCKET=video-enhancer-storage
-PROMETHEUS_PORT=9090
-GPU_MEMORY_FRACTION=0.8
-```
 
 ## 🔧 Troubleshooting
 
@@ -209,30 +186,9 @@ GPU_MEMORY_FRACTION=0.8
    - Verify input video format
    - Ensure sufficient storage
 
-## 👥 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Code Style
-
-- Follow PEP 8 guidelines
-- Add docstrings to all functions
-- Include type hints
-- Write unit tests for new features
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📊 Metrics & Monitoring
-
-Access monitoring dashboards:
-- Grafana: `http://localhost:3000`
-- Prometheus: `http://localhost:9090`
 
 Key metrics tracked:
 - GPU Utilization
