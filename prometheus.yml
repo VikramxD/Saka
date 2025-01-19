@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'video-enhancer'
+    static_configs:
+      - targets: ['video-enhancer:9090']
+    metrics_path: /metrics

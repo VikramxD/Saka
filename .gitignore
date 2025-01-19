@@ -1,0 +1,63 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Environment variables and secrets
+.env
+.env.*
+*.pem
+*.key
+configs/settings.py
+
+# Temporary files
+*.tmp
+.DS_Store
+.coverage
+htmlcov/
+
+# Model files and data
+*.pth
+*.onnx
+*.pt
+*.bin
+
+
+# Test files
+.pytest_cache/
+.coverage
+coverage.xml
+.tox/
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Generated files
+output/
+results/
+temp/
+.ipynb_checkpoints/
