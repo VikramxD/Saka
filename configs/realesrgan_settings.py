@@ -1,18 +1,74 @@
-from pydantic_settings import BaseSettings
-from pydantic import Field
+"""
+Configuration settings for Real-ESRGAN video upscaling.
+
+Features:
+    - Batch video processing with progress tracking
+    - Detailed performance metrics collection
+    - Automated environment setup
+    - Error handling and recovery
+    - JSON-based metrics export
+
+Dependencies:
+    - torch with CUDA support
+    - Real-ESRGAN
+    - OpenCV
+    - tqdm for progress tracking
+
+Typical usage:
+    settings = UpscalerSettings(model_name="realesr-animevideov3")
+    upscaler = VideoUpscaler(settings)
+    metrics = upscaler.process_video(video_path)
+"""
+
+import os
 from pathlib import Path
+from dataclasses import dataclass
 
+# Get the parent directory of the project
+PROJECT_ROOT = Path(__file__).parent.parent
 
-class UpscalerSettings(BaseSettings):
-    """Configuration settings for Real-ESRGAN video upscaling."""
-
-    output_dir: Path = Field(default=Path("../outputs"), description="Base directory for processed videos")
-    model_name: str = Field(default="realesr-animevideov3", description="Real-ESRGAN model name")
-    scale_factor: int = Field(default=2, description="Video upscaling factor", ge=1, le=4)
-    tile_size: int = Field( default=0, description="Tile size for processing (0 for auto)")
-    face_enhance: bool = Field(default=False, description="Enable face enhancement")
-    use_half_precision: bool = Field(default=True, description="Use FP16 (half) precision for faster processing")
-    gpu_device: int = Field(default=0, description="GPU device ID to use")
-
-    class Config:
-        env_prefix = "UPSCALER_"
+@dataclass
+class UpscalerSettings:
+    """Settings for video upscaling."""
+    # Model settings
+    model_name: str = "realesr-animevideov3"
+    scale_factor: int = 4
+    tile_size: int = 0
+    face_enhance: bool = False
+    use_half_precision: bool = True
+    
+    # Processing settings
+    calculate_ssim: bool = False  # Whether to calculate SSIM metrics
+    
+    # Directory settings - relative to project root
+    output_dir: Path = PROJECT_ROOT / "outputs"
+    realesrgan_dir: Path = PROJECT_ROOT / "Real-ESRGAN"
+    log_dir: Path = PROJECT_ROOT / "logs"
+    
+    def __post_init__(self):
+        """Convert string paths to Path objects and create directories."""
+        # Convert string paths to Path objects if they're strings
+        if isinstance(self.output_dir, str):
+            self.output_dir = PROJECT_ROOT / self.output_dir
+        if isinstance(self.realesrgan_dir, str):
+            self.realesrgan_dir = PROJECT_ROOT / self.realesrgan_dir
+        if isinstance(self.log_dir, str):
+            self.log_dir = PROJECT_ROOT / self.log_dir
+        
+        # Create necessary directories
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+        
+    def __str__(self):
+        """Pretty string representation of settings."""
+        return (
+            f"UpscalerSettings(\n"
+            f"  Model: {self.model_name}\n"
+            f"  Scale: {self.scale_factor}x\n"
+            f"  Face enhance: {self.face_enhance}\n"
+            f"  Half precision: {self.use_half_precision}\n"
+            f"  Calculate SSIM: {self.calculate_ssim}\n"
+            f"  Output dir: {self.output_dir}\n"
+            f"  Log dir: {self.log_dir}\n"
+            f")"
+        )
