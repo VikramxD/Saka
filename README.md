@@ -91,7 +91,7 @@
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.10 or higher
 - CUDA-compatible GPU (recommended)
 - FFmpeg installed on your system
 
@@ -100,7 +100,7 @@
 1. Clone the repository with submodules:
 ```bash
 # Clone with submodules
-git clone --recursive https://github.com/yourusername/video-enhancer.git
+git clone --recursive https://github.com/suducrates/video-enhancer.git
 
 # Or if you've already cloned the repository:
 git submodule init
@@ -117,11 +117,7 @@ pip install -r requirements.txt
 # Ubuntu/Debian
 sudo apt-get update && sudo apt-get install ffmpeg
 
-# macOS
-brew install ffmpeg
 
-# Windows
-# Download from https://ffmpeg.org/download.html
 ```
 
 ## 💡 Usage
@@ -139,7 +135,7 @@ import requests
 
 # Submit a video for enhancement
 with open('input.mp4', 'rb') as f:
-    response = requests.post('http://localhost:8000/enhance',
+    response = requests.post('http://localhost:8000/predict',
                            files={'video': f},
                            data={'scale': 2,
                                  'model': 'real-esrgan'})
