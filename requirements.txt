@@ -41,7 +41,7 @@ jupyter-core==5.7.2
 jupyterlab-pygments==0.3.0
 kiwisolver==1.4.7
 lazy-loader==0.4
-litserve>=0.1.0
+litserve
 llvmlite==0.43.0
 lmdb==1.5.1
 loguru==0.7.2
@@ -84,9 +84,9 @@ protobuf==5.28.3
 psutil==6.1.0
 ptyprocess==0.7.0
 pure-eval==0.2.3
-pydantic==2.5.1
-pydantic-core==2.27.1
-pydantic-settings==2.6.1
+pydantic
+pydantic-core
+pydantic-settings
 pygments==2.18.0
 pyparsing==3.2.0
 python-dateutil==2.9.0.post0
@@ -117,7 +117,7 @@ traitlets==5.14.3
 triton==2.1.0
 typing-extensions==4.12.2
 urllib3==2.2.3
-uvicorn==0.24.0
+uvicorn
 wcwidth==0.2.13
 webencodings==0.5.1
 werkzeug==3.1.3
@@ -126,6 +126,6 @@ yarg==0.1.9
 ffmpeg-python
 rich
 black
-fastapi==0.104.1
+fastapi
 httpx==0.25.1
-python-multipart==0.0.6
+python-multipart
