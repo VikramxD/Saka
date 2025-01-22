@@ -1,3 +1,32 @@
+"""
+Real-ESRGAN Video Upscaling System.
+
+This module provides functionality for upscaling videos using the Real-ESRGAN model.
+It handles the complete pipeline from model setup to video processing and quality assessment.
+
+Key Features:
+    - Automated Real-ESRGAN setup and dependency management
+    - Video upscaling with configurable parameters
+    - Progress tracking with rich
+    - Quality assessment using SSIM metrics
+    - Comprehensive logging
+    - Error handling and recovery
+
+Dependencies:
+    - Real-ESRGAN
+    - OpenCV for video processing
+    - torch for model inference
+    - rich for progress tracking
+    - loguru for logging
+    - psutil for system monitoring
+
+Example:
+    >>> from configs.realesrgan_settings import UpscalerSettings
+    >>> settings = UpscalerSettings()
+    >>> upscaler = VideoUpscaler(settings)
+    >>> result = upscaler.process_video(Path("input.mp4"))
+"""
+
 from pathlib import Path
 from typing import Dict, Any
 import cv2
@@ -6,22 +35,37 @@ import subprocess
 import time
 import psutil
 import json
-from tqdm import tqdm
 from loguru import logger
 from skimage.metrics import structural_similarity as ssim
 from configs.realesrgan_settings import UpscalerSettings
 import numpy as np
 import os
+from rich.progress import (
+    Progress,
+    TextColumn,
+    BarColumn,
+    TaskProgressColumn,
+    TimeRemainingColumn,
+    SpinnerColumn,
+    MofNCompleteColumn,
+)
+from rich.console import Console
 
-def setup_logger(log_dir: Path):
-    """Set up loguru logger configuration."""
+
+def setup_logger(log_dir: Path) -> None:
+    """
+    Configure loguru logger with file and console outputs.
+    
+    Sets up two logging handlers:
+    1. File handler: Logs all messages to a rotating log file
+    2. Console handler: Displays colored output in the terminal
+    
+    Args:
+        log_dir: Directory where log files will be stored
+    """
     log_dir.mkdir(parents=True, exist_ok=True)
     log_file = log_dir / "video_enhancer.log"
-    
-    # Remove default handler and add our custom handlers
     logger.remove()
-    
-    # Add handlers for both file and console
     logger.add(
         log_file,
         format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
@@ -35,92 +79,122 @@ def setup_logger(log_dir: Path):
         colorize=True
     )
 
+
+def setup_realesrgan(realesrgan_dir: Path) -> Path:
+    """
+    Set up Real-ESRGAN repository and install dependencies.
+
+    This is a one-time setup that should be run before using the VideoUpscaler.
+    It will:
+    1. Clone the Real-ESRGAN repository if not present
+    2. Install dependencies using uv package manager
+    3. Set up the package in editable mode
+
+    Args:
+        realesrgan_dir: Directory where Real-ESRGAN should be installed
+
+    Returns:
+        Path to the Real-ESRGAN installation directory
+
+    Raises:
+        subprocess.CalledProcessError: If any installation step fails
+    """
+    # Remove directory if it exists but is empty
+    if realesrgan_dir.exists():
+        if not any(realesrgan_dir.iterdir()):
+            logger.info("Removing empty Real-ESRGAN directory...")
+            realesrgan_dir.rmdir()
+        else:
+            logger.info("Real-ESRGAN repository already exists")
+            return realesrgan_dir
+
+    # Clone the repository
+    logger.info("Cloning Real-ESRGAN repository...")
+    subprocess.run(
+        ["git", "clone", "https://github.com/xinntao/Real-ESRGAN.git", str(realesrgan_dir)],
+        check=True
+    )
+    
+    # Change to Real-ESRGAN directory
+    original_dir = os.getcwd()
+    os.chdir(str(realesrgan_dir))
+    
+    try:
+        # Check if requirements.txt exists
+        if not os.path.exists('requirements.txt'):
+            logger.error("requirements.txt not found in Real-ESRGAN directory")
+            raise FileNotFoundError("requirements.txt not found in Real-ESRGAN directory")
+            
+        # Install dependencies using uv
+        logger.info("Installing dependencies with uv...")
+        subprocess.run(
+            ["uv", "pip", "install", "-r", "requirements.txt", "--no-cache"],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        
+        # Install package in editable mode with all dependencies
+        logger.info("Installing Real-ESRGAN in editable mode...")
+        subprocess.run(
+            ["uv", "pip", "install", "-e", ".", "--no-deps", "--no-build-isolation"],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        
+        logger.success("Real-ESRGAN setup completed successfully")
+    except Exception as e:
+        logger.error(f"Error during setup: {str(e)}")
+        raise
+    finally:
+        # Always change back to original directory
+        os.chdir(original_dir)
+    
+    return realesrgan_dir
+
+
 class VideoUpscaler:
     """
     Video upscaling system using Real-ESRGAN.
 
-    This class implements video upscaling using Real-ESRGAN,
-    focusing solely on the upscaling process.
+    This class implements a complete video upscaling pipeline using the Real-ESRGAN model.
+    It handles model setup, video processing, and quality assessment.
 
     Attributes:
         settings (UpscalerSettings): Configuration settings for the upscaler
-        realesrgan_path (Path): Path to Real-ESRGAN installation
-    """
 
-    REALESRGAN_REPO: str = "https://github.com/xinntao/Real-ESRGAN.git"
+    Example:
+        >>> settings = UpscalerSettings(model_name="realesr-animevideov3")
+        >>> upscaler = VideoUpscaler(settings)
+        >>> result = upscaler.process_video(Path("input.mp4"))
+    """
 
     def __init__(self, settings: UpscalerSettings):
         """
         Initialize the video upscaler.
 
         Args:
-            settings: Configuration settings for the upscaler
+            settings: Configuration settings for the upscaler, including model parameters
+                     and directory paths
         """
-        # Set up logging first
         setup_logger(settings.log_dir)
-        
         self.settings = settings
         logger.info(f"Initializing VideoUpscaler with settings: {settings}")
-        
-        # Set up Real-ESRGAN
-        self.realesrgan_path = self._setup_realesrgan()
-
-    def _setup_realesrgan(self) -> Path:
-        """
-        Set up Real-ESRGAN repository and install dependencies.
-        Uses uv for package management.
-        """
-        realesrgan_path = self.settings.realesrgan_dir
-        
-        if not realesrgan_path.exists():
-            logger.info("Cloning Real-ESRGAN repository...")
-            subprocess.run(
-                ["git", "clone", self.REALESRGAN_REPO, str(realesrgan_path)],
-                check=True
-            )
-            
-            # Change to Real-ESRGAN directory
-            original_dir = os.getcwd()
-            os.chdir(str(realesrgan_path))
-            
-            try:
-                # Install dependencies using uv
-                logger.info("Installing dependencies with uv...")
-                result = subprocess.run(
-                    ["uv", "pip", "install", "-r", "requirements.txt"],
-                    check=True,
-                    capture_output=True,
-                    text=True
-                )
-                logger.debug(f"Dependencies installation output: {result.stdout}")
-                
-                # Install package in editable mode
-                logger.info("Installing Real-ESRGAN in editable mode...")
-                result = subprocess.run(
-                    ["uv", "pip", "install", "-e", ".", "--no-build-isolation"],
-                    check=True,
-                    capture_output=True,
-                    text=True
-                )
-                logger.debug(f"Package installation output: {result.stdout}")
-                
-            except subprocess.CalledProcessError as e:
-                logger.error(f"Error during setup: {e.stdout}\n{e.stderr}")
-                raise
-            finally:
-                # Always change back to original directory
-                os.chdir(original_dir)
-                
-            logger.success("Real-ESRGAN setup completed successfully")
-        else:
-            logger.info("Real-ESRGAN repository already exists")
-        
-        return realesrgan_path
 
     def calculate_spatial_ssim(self, frame1: np.ndarray, frame2: np.ndarray) -> float:
         """
         Calculate spatial SSIM between original and upscaled frames.
-        The upscaled frame (frame2) will be downscaled to match frame1's dimensions.
+
+        The upscaled frame (frame2) will be downscaled to match frame1's dimensions
+        for accurate comparison.
+
+        Args:
+            frame1: Original frame
+            frame2: Upscaled frame to compare against
+
+        Returns:
+            Spatial SSIM score between 0 and 1
         """
         # Convert to grayscale
         gray1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
@@ -133,7 +207,17 @@ class VideoUpscaler:
         return ssim(gray1, gray2, data_range=255)
 
     def calculate_temporal_ssim(self, frames: np.ndarray) -> float:
-        """Calculate temporal SSIM across consecutive frames."""
+        """
+        Calculate temporal SSIM across consecutive frames.
+
+        Measures the temporal consistency between consecutive frames in a video.
+
+        Args:
+            frames: Array of video frames to analyze
+
+        Returns:
+            Temporal SSIM score between 0 and 1
+        """
         num_frames = len(frames)
         temporal_ssim_scores = []
 
@@ -147,14 +231,19 @@ class VideoUpscaler:
     def calculate_st_ssim(self, original_video: Path, enhanced_video: Path) -> float:
         """
         Calculate Spatio-Temporal SSIM between original and enhanced videos.
-        Handles different resolutions by downscaling the enhanced video for comparison.
-        
+
+        Combines both spatial and temporal SSIM metrics to provide a comprehensive
+        quality assessment of the upscaled video.
+
         Args:
             original_video: Path to original input video
             enhanced_video: Path to upscaled output video
-            
+
         Returns:
-            float: ST-SSIM score between 0 and 1
+            ST-SSIM score between 0 and 1
+
+        Raises:
+            ValueError: If videos cannot be opened or have no frames
         """
         # Wait longer for the enhanced video to be fully written
         max_retries = 5
@@ -219,7 +308,8 @@ class VideoUpscaler:
             spatial_scores = []
 
             # Process frames with progress bar
-            with tqdm(total=total_frames, desc="Calculating ST-SSIM", unit="frame") as pbar:
+            with Progress() as progress:
+                task_id = progress.add_task("Calculating ST-SSIM", total=total_frames)
                 frame_count = 0
                 while frame_count < total_frames:
                     orig_ret, orig_frame = orig_cap.read()
@@ -248,7 +338,7 @@ class VideoUpscaler:
                         continue
                     finally:
                         frame_count += 1
-                        pbar.update(1)
+                        progress.update(task_id, advance=1)
 
         finally:
             # Ensure videos are properly closed
@@ -272,20 +362,36 @@ class VideoUpscaler:
 
         return float(st_ssim) if not np.isnan(st_ssim) else 0.0
 
-    def process_video(self, video_path: Path) -> Dict[str, Any]:
+    def process_video(self, video_path: str) -> Dict[str, Any]:
         """
         Process a single video through the upscaling pipeline.
+
+        This method:
+        1. Validates input video
+        2. Runs Real-ESRGAN upscaling
+        3. Calculates quality metrics if enabled
+        4. Monitors system resources
+        5. Tracks progress
 
         Args:
             video_path: Path to the input video file
 
         Returns:
-            Dictionary containing processing details and results
+            Dictionary containing:
+                - Processing time
+                - Output path
+                - SSIM score (if enabled)
+                - System resource usage
+                - Model parameters used
+
+        Raises:
+            FileNotFoundError: If input video doesn't exist
+            RuntimeError: If upscaling process fails
         """
         start_time = time.time()
         
         # Get input video information
-        cap = cv2.VideoCapture(str(video_path))
+        cap = cv2.VideoCapture(video_path)
         input_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         input_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         cap.release()
@@ -297,27 +403,41 @@ class VideoUpscaler:
         # Create outputs directory if it doesn't exist
         self.settings.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Set output path - just the folder name
-        output_path = self.settings.output_dir / video_path.stem
+        # Set output path - Real-ESRGAN will create subfolder and add _out.mp4
+        input_file = Path(video_path)
+        output_path = self.settings.output_dir / input_file.stem
+        final_output = output_path / f"{input_file.stem}_out.mp4"
 
         # Process video
         cmd = [
             "python",
-            str(self.realesrgan_path / "inference_realesrgan_video.py"),
-            "-i", str(video_path),
+            str(self.settings.realesrgan_dir / "inference_realesrgan_video.py"),
+            "-i", video_path,
             "-o", str(output_path),
             "-n", self.settings.model_name,
             "-s", str(self.settings.scale_factor),
             "-t", str(self.settings.tile_size),
         ]
 
-        if not self.settings.use_half_precision:
+        # Add optional arguments based on settings
+        model_settings = self.settings.get_model_settings()
+        if model_settings["fp32"]:
             cmd.append("--fp32")
-        if self.settings.face_enhance:
+        if model_settings["face_enhance"]:
             cmd.append("--face_enhance")
 
-        # Create progress bar for video processing
-        pbar = tqdm(total=100, desc="Processing video", unit="%")
+        # Create rich progress display
+        console = Console()
+        progress = Progress(
+            SpinnerColumn(),
+            TextColumn("[bold blue]{task.description}"),
+            BarColumn(complete_style="green", finished_style="bright_green"),
+            TaskProgressColumn(),
+            TimeRemainingColumn(),
+            MofNCompleteColumn(),
+            console=console,
+            expand=True
+        )
         
         process = subprocess.Popen(
             cmd,
@@ -328,55 +448,81 @@ class VideoUpscaler:
             universal_newlines=True
         )
 
-        def update_progress(line):
-            if not line:
-                return
+        with progress:
+            # Create the main task
+            task_id = progress.add_task(
+                f"[cyan]Enhancing[/cyan] {Path(video_path).name}",
+                total=100,
+                start=True
+            )
+
+            def update_progress(line: str) -> None:
+                if not line:
+                    return
                 
-            logger.debug(f"Progress line: {line.strip()}")
-            
-            try:
-                if 'frame' in line.lower() and '/' in line:
-                    # Try to find pattern like "frame: 22/180"
-                    parts = line.split('/')
-                    if len(parts) >= 2:
-                        current = int(''.join(filter(str.isdigit, parts[0])))
-                        total = int(''.join(filter(str.isdigit, parts[1])))
+                line = line.strip().lower()
+                
+                try:
+                    # Try frame-based pattern first (e.g., "frame: 22/180")
+                    if 'frame' in line and '/' in line:
+                        current = int(''.join(filter(str.isdigit, line.split('/')[0])))
+                        total = int(''.join(filter(str.isdigit, line.split('/')[1])))
                         if total > 0:
-                            progress = (current / total) * 100
-                            pbar.n = min(round(progress), 100)
-                            pbar.refresh()
-                elif '%' in line:
-                    # Try to find percentage pattern
-                    percent_str = ''.join(filter(lambda x: x.isdigit() or x == '.', line.split('%')[0]))
-                    if percent_str:
-                        progress = float(percent_str)
-                        pbar.n = min(round(progress), 100)
-                        pbar.refresh()
-            except Exception as e:
-                logger.debug(f"Error parsing progress: {str(e)} from line: {line.strip()}")
+                            percent = (current / total) * 100
+                            progress.update(task_id, completed=percent)
+                    
+                    # Try percentage pattern (e.g., "50%")
+                    elif '%' in line:
+                        percent_str = ''.join(filter(lambda x: x.isdigit() or x == '.', line.split('%')[0]))
+                        if percent_str:
+                            try:
+                                percent = float(percent_str)
+                                progress.update(task_id, completed=percent)
+                            except ValueError:
+                                pass
+                except Exception as e:
+                    pass
 
-        # Monitor both stdout and stderr for progress updates
-        while True:
-            stdout_line = process.stdout.readline()
-            stderr_line = process.stderr.readline()
-            
-            if not stdout_line and not stderr_line and process.poll() is not None:
-                break
+            # Process output in real-time
+            while True:
+                # Read stdout
+                output = process.stdout.readline()
+                if output:
+                    update_progress(output)
                 
-            if stdout_line:
-                update_progress(stdout_line)
-            if stderr_line:
-                update_progress(stderr_line)
+                # Read stderr
+                error = process.stderr.readline()
+                if error and "error" in error.lower():
+                    logger.error(f"Real-ESRGAN error: {error.strip()}")
+                
+                # Check if process is still running
+                if process.poll() is not None:
+                    break
+            
+            # Process any remaining output
+            for line in process.stdout:
+                update_progress(line)
+            
+            for line in process.stderr:
+                if "error" in line.lower():
+                    logger.error(f"Real-ESRGAN error: {line.strip()}")
 
-        pbar.close()
-        return_code = process.wait()
-
-        if return_code != 0:
-            error_output = process.stderr.read()
-            raise RuntimeError(f"Processing failed: {error_output}")
-
-        # The actual output path after Real-ESRGAN processing
-        final_output = output_path / f"{video_path.stem}_out.mp4"
+            # Ensure progress bar shows completion
+            progress.update(task_id, completed=100)
+        
+        if process.returncode != 0:
+            raise RuntimeError(f"Video processing failed with return code {process.returncode}")
+            
+        # Wait for the output file to be fully written
+        max_retries = 10
+        retry_delay = 1
+        for attempt in range(max_retries):
+            if final_output.exists() and final_output.stat().st_size > 0:
+                break
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+        else:
+            raise RuntimeError("Output file was not created or is empty")
 
         # Calculate metrics
         end_time = time.time()
@@ -394,42 +540,45 @@ class VideoUpscaler:
                 "width": output_width,
                 "height": output_height
             },
-            "ram_usage_mb": round(ram_usage, 1),
-            "processing_time_sec": round(processing_time, 1),
-            "message": "Video processed successfully."
+            "processing_time": round(processing_time, 2),
+            "ram_usage_mb": round(ram_usage, 2),
+            "model_settings": model_settings
         }
 
         # Calculate SSIM if enabled
         if self.settings.calculate_ssim:
-            logger.info("Calculating SSIM score...")
-            ssim_score = self.calculate_st_ssim(video_path, final_output)
+            ssim_score = self.calculate_st_ssim(Path(video_path), final_output)
             result["ssim_score"] = round(ssim_score, 3)
-            logger.info(f"SSIM Score: {result['ssim_score']}")
 
-        logger.info(json.dumps(result, indent=2))
         return result
 
 
 if __name__ == "__main__":
-    input_path = "hxh.mp4"
-    model_name = "realesr-animevideov3"
-    scale_factor = 4
-    face_enhance = False
-    log_dir = Path("logs")
-
     try:
+        # Set up input path and settings
+        input_path = '/home/jovyan/video-enhancer/scripts/hxh.mp4'
+        if not os.path.exists(input_path):
+            raise FileNotFoundError(f"Input video not found: {input_path}")
+            
+        # Load settings with custom configuration
         settings = UpscalerSettings(
-            model_name=model_name,
-            scale_factor=scale_factor,
-            face_enhance=face_enhance,
-            log_dir=log_dir
+            model_name="realesr-animevideov3",   
+            scale_factor=4,                      # Change scale factor if needed
+            face_enhance=False,                  # Set to True to enhance faces
+            use_half_precision=True,             # Set to False for FP32 precision
+            input_path=input_path                # Set the input path
         )
-
+        
+        # Perform one-time setup of Real-ESRGAN
+        setup_realesrgan(settings.realesrgan_dir)
+        
+        # Create upscaler instance
         upscaler = VideoUpscaler(settings)
-        upscaler.process_video(Path(input_path))
-
+        
+        # Process video
+        result = upscaler.process_video(input_path)
+        logger.info(f"Video processing completed: {json.dumps(result, indent=2)}")
+            
     except Exception as e:
-        print(json.dumps({
-            "error": str(e),
-            "message": "Processing failed"
-        }, indent=2))
+        logger.error(f"Error during video processing: {str(e)}")
+        raise

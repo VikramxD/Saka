@@ -4,7 +4,7 @@ import uuid
 import base64
 import tempfile
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union, List
 from loguru import logger
 import litserve as ls
 from fastapi import UploadFile, File, Form, Header, HTTPException
@@ -99,75 +99,72 @@ class VideoEnhancerAPI(ls.LitAPI):
             logger.exception("Failed to initialize API")
             raise
 
-    def predict(self, request: Dict[str, Any]) -> Dict[str, Any]:
+    def predict(self, request: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Process the video and return VideoResponse.
         
         Args:
-            request: Dictionary containing:
+            request: List of request dictionaries, each containing:
                 - video_base64: Base64 encoded video bytes
                 - calculate_ssim: Whether to calculate SSIM
             
         Returns:
-            Dict with output_url and metrics
+            List of dictionaries with output_url and metrics
             
         Raises:
             ValueError: If video is not provided
         """
-        temp_files = []
-        try:
-            # Get video bytes from request
-            video_base64 = request.get("video_base64")
+        results = []
+        for single_request in request:
+            video_base64 = single_request.get("video_base64")
             if not video_base64:
-                raise ValueError("No video file provided in request")
+                raise ValueError("No video provided in request")
+
+            calculate_ssim = single_request.get("calculate_ssim", False)
             
-            # Decode base64
-            try:
+            # Create temp file for video
+            temp_files = []
+            with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as temp_video:
+                temp_files.append(Path(temp_video.name))
                 video_bytes = base64.b64decode(video_base64)
+                temp_video.write(video_bytes)
+                input_path = Path(temp_video.name)
+
+            try:
+                start_time = time.perf_counter()
+                self.log("video_size", len(video_bytes))
+
+                self.upscaler.settings.calculate_ssim = calculate_ssim
+                result = self.upscaler.process_video(input_path)
+                self.log("inference_time", time.perf_counter() - start_time)
+                self.log("ram_usage", result["ram_usage_mb"] * 1e6)  # Convert to bytes
+
+                output_path = f"videos/{uuid.uuid4()}/enhanced.mp4"
+                output_url = self.storage.upload_video(
+                    Path(result["video_url"]),
+                    output_path
+                )
+
+                results.append({
+                    "output_url": output_url,
+                    "metrics": {
+                        "ram_usage_mb": result["ram_usage_mb"],
+                        "processing_time_sec": time.perf_counter() - start_time,
+                        "ssim_score": result.get("ssim_score") if calculate_ssim else None
+                    }
+                })
+
             except Exception as e:
-                raise ValueError(f"Invalid base64 data: {str(e)}")
-            
-            # Get parameters
-            calculate_ssim = request.get("calculate_ssim", False)
-            
-            # Save uploaded file
-            with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as tmp_input:
-                tmp_input.write(video_bytes)
-                input_path = Path(tmp_input.name)
-                temp_files.append(input_path)
-            
-            self.log("video_size", len(video_bytes))
+                error_type = type(e).__name__.lower()
+                self.log(f"error_{error_type}", 1)
+                logger.exception("Processing failed")
+                raise
 
-            start_time = time.perf_counter()
-            self.upscaler.settings.calculate_ssim = calculate_ssim
-            result = self.upscaler.process_video(input_path)
-            self.log("inference_time", time.perf_counter() - start_time)
-            self.log("ram_usage", result["ram_usage_mb"] * 1e6)  # Convert to bytes
-
-            output_path = f"videos/{uuid.uuid4()}/enhanced.mp4"
-            output_url = self.storage.upload_video(
-                Path(result["video_url"]),
-                output_path
-            )
-
-            return {
-                "output_url": output_url,
-                "metrics": {
-                    "ram_usage_mb": result["ram_usage_mb"],
-                    "processing_time_sec": result["processing_time_sec"],
-                    "ssim_score": result.get("ssim_score") if calculate_ssim else None
-                }
-            }
-
-        except Exception as e:
-            error_type = type(e).__name__.lower()
-            self.log(f"error_{error_type}", 1)
-            logger.exception("Processing failed")
-            raise
-
-        finally:
-            # Cleanup temporary files
-            for temp_file in temp_files:
-                temp_file.unlink(missing_ok=True)
+            finally:
+                # Cleanup temporary files
+                for temp_file in temp_files:
+                    temp_file.unlink(missing_ok=True)
+                    
+        return results
 
 if __name__ == "__main__":
     settings = get_settings()
@@ -176,8 +173,12 @@ if __name__ == "__main__":
     server = ls.LitServer(
         api,
         accelerator="auto",
-        max_batch_size=1,
-        loggers=metrics_logger
+        devices = 'auto',
+        workers_per_device = settings.api.workers,
+        max_batch_size=16,
+        loggers=metrics_logger,
+        track_requests = True,
+
     )
     
     server.run(

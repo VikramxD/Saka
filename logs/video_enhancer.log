@@ -1,0 +1,514 @@
+2025-01-22 16:36:59 | INFO     | __main__:__init__:174 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:36:59 | ERROR    | __main__:<module>:574 - Error during video processing: Video processing failed with return code 2
+2025-01-22 16:37:18 | INFO     | __main__:__init__:174 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:37:18 | ERROR    | __main__:<module>:574 - Error during video processing: Video processing failed with return code 2
+2025-01-22 16:51:23 | INFO     | __main__:__init__:169 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:57:46 | INFO     | __main__:<module>:566 - Video processing completed: {
+  "video_url": "/home/jovyan/video-enhancer/outputs/hxh/hxh_out.mp4",
+  "input_resolution": {
+    "width": 640,
+    "height": 360
+  },
+  "output_resolution": {
+    "width": 2560,
+    "height": 1440
+  },
+  "processing_time": 73.21,
+  "ram_usage_mb": 462.07,
+  "model_settings": {
+    "model_name": "realesr-animevideov3",
+    "scale": 4,
+    "tile": 0,
+    "face_enhance": false,
+    "fp32": false
+  },
+  "ssim_score": 0.948
+}
+2025-01-22 17:23:20 | INFO     | __main__:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 17:29:39 | INFO     | __main__:<module>:580 - Video processing completed: {
+  "video_url": "/home/jovyan/video-enhancer/outputs/hxh/hxh_out.mp4",
+  "input_resolution": {
+    "width": 640,
+    "height": 360
+  },
+  "output_resolution": {
+    "width": 2560,
+    "height": 1440
+  },
+  "processing_time": 68.14,
+  "ram_usage_mb": 447.75,
+  "model_settings": {
+    "model_name": "realesr-animevideov3",
+    "scale": 4,
+    "tile": 0,
+    "face_enhance": false,
+    "fp32": false
+  },
+  "ssim_score": 0.948
+}
+2025-01-22 18:59:07 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: model_name='RealESRGAN_x4plus' device='cuda' tile_size=0 tile_pad=10 pre_pad=0 fp32=True scale=4 log_dir=PosixPath('../logs') model_path=None output_dir=PosixPath('../output')
+2025-01-22 18:59:07 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 18:59:07 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:00:24 | ERROR    | __mp_main__:predict:164 - Processing failed
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 3
+               │     └ 12
+               └ <function _main at 0x7f343e781630>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 3
+           │    └ <function BaseProcess._bootstrap at 0x7f343e8dbbe0>
+           └ <SpawnProcess name='SpawnProcess-3' parent=28071 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f343e8db250>
+    └ <SpawnProcess name='SpawnProcess-3' parent=28071 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-3' parent=28071 started>
+    │    │        │    └ (<__mp_main__.VideoEnhancerAPI object at 0x7f343e7bae00>, None, 'cuda:0', 0, <AutoProxy[Queue] object, typeid 'Queue' at 0x7f...
+    │    │        └ <SpawnProcess name='SpawnProcess-3' parent=28071 started>
+    │    └ <function inference_worker at 0x7f343cb6a710>
+    └ <SpawnProcess name='SpawnProcess-3' parent=28071 started>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/loops.py", line 84, in inference_worker
+    loop(
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7f3241b8f490>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 134, in __call__
+    self.run_single_loop(lit_api, lit_spec, request_queue, response_queues, callback_runner)
+    │    │               │        │         │              │                └ <litserve.callbacks.base.CallbackRunner object at 0x7f3241b8e740>
+    │    │               │        │         │              └ [<AutoProxy[Queue] object, typeid 'Queue' at 0x7f3241b8f4c0>]
+    │    │               │        │         └ <AutoProxy[Queue] object, typeid 'Queue' at 0x7f3241aed780>
+    │    │               │        └ None
+    │    │               └ <__mp_main__.VideoEnhancerAPI object at 0x7f343e7bae00>
+    │    └ <function SingleLoop.run_single_loop at 0x7f343cb6a4d0>
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7f3241b8f490>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 75, in run_single_loop
+    y = _inject_context(
+        └ <function _inject_context at 0x7f343cb04280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/base.py", line 41, in _inject_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ ({'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABAA...
+           └ <bound method VideoEnhancerAPI.predict of <__mp_main__.VideoEnhancerAPI object at 0x7f343e7bae00>>
+
+> File "/home/jovyan/video-enhancer/api/serve_enhancer.py", line 141, in predict
+    self.upscaler.settings.calculate_ssim = calculate_ssim
+    │    │        │                         └ True
+    │    │        └ RealESRGANSettings(model_name='RealESRGAN_x4plus', device='cuda', tile_size=0, tile_pad=10, pre_pad=0, fp32=True, scale=4, lo...
+    │    └ <scripts.realesrgan.VideoUpscaler object at 0x7f343e7bae30>
+    └ <__mp_main__.VideoEnhancerAPI object at 0x7f343e7bae00>
+
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/pydantic/main.py", line 925, in __setattr__
+    raise ValueError(f'"{self.__class__.__name__}" object has no field "{name}"')
+
+ValueError: "RealESRGANSettings" object has no field "calculate_ssim"
+2025-01-22 19:01:33 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: model_name='RealESRGAN_x4plus' device='cuda' tile_size=0 tile_pad=10 pre_pad=0 fp32=True scale=4 log_dir=PosixPath('../logs') model_path=None output_dir=PosixPath('../output') calculate_ssim=False
+2025-01-22 19:01:33 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:01:33 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:02:14 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: model_name='RealESRGAN_x4plus' device='cuda' tile_size=0 tile_pad=10 pre_pad=0 fp32=True scale=4 log_dir=PosixPath('../logs') model_path=None output_dir=PosixPath('../output') calculate_ssim=False
+2025-01-22 19:02:14 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:02:14 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:02:33 | ERROR    | __mp_main__:predict:164 - Processing failed
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 3
+               │     └ 12
+               └ <function _main at 0x7fd83a1cd630>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 3
+           │    └ <function BaseProcess._bootstrap at 0x7fd83a323be0>
+           └ <SpawnProcess name='SpawnProcess-3' parent=29809 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fd83a323250>
+    └ <SpawnProcess name='SpawnProcess-3' parent=29809 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-3' parent=29809 started>
+    │    │        │    └ (<__mp_main__.VideoEnhancerAPI object at 0x7fd83a206e00>, None, 'cuda:0', 0, <AutoProxy[Queue] object, typeid 'Queue' at 0x7f...
+    │    │        └ <SpawnProcess name='SpawnProcess-3' parent=29809 started>
+    │    └ <function inference_worker at 0x7fd8385ca710>
+    └ <SpawnProcess name='SpawnProcess-3' parent=29809 started>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/loops.py", line 84, in inference_worker
+    loop(
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7fd63d573520>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 134, in __call__
+    self.run_single_loop(lit_api, lit_spec, request_queue, response_queues, callback_runner)
+    │    │               │        │         │              │                └ <litserve.callbacks.base.CallbackRunner object at 0x7fd63d5727d0>
+    │    │               │        │         │              └ [<AutoProxy[Queue] object, typeid 'Queue' at 0x7fd63d573550>]
+    │    │               │        │         └ <AutoProxy[Queue] object, typeid 'Queue' at 0x7fd63d4d1810>
+    │    │               │        └ None
+    │    │               └ <__mp_main__.VideoEnhancerAPI object at 0x7fd83a206e00>
+    │    └ <function SingleLoop.run_single_loop at 0x7fd8385ca4d0>
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7fd63d573520>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 75, in run_single_loop
+    y = _inject_context(
+        └ <function _inject_context at 0x7fd838564280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/base.py", line 41, in _inject_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ ({'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABAA...
+           └ <bound method VideoEnhancerAPI.predict of <__mp_main__.VideoEnhancerAPI object at 0x7fd83a206e00>>
+
+> File "/home/jovyan/video-enhancer/api/serve_enhancer.py", line 142, in predict
+    result = self.upscaler.process_video(input_path)
+             │    │        │             └ PosixPath('/tmp/tmp3fd5njdy.mp4')
+             │    │        └ <function VideoUpscaler.process_video at 0x7fd63da7e560>
+             │    └ <scripts.realesrgan.VideoUpscaler object at 0x7fd83a206e30>
+             └ <__mp_main__.VideoEnhancerAPI object at 0x7fd83a206e00>
+
+  File "/home/jovyan/video-enhancer/scripts/realesrgan.py", line 400, in process_video
+    output_width = input_width * self.settings.scale_factor
+                   │             │    └ RealESRGANSettings(model_name='RealESRGAN_x4plus', device='cuda', tile_size=0, tile_pad=10, pre_pad=0, fp32=True, scale=4, lo...
+                   │             └ <scripts.realesrgan.VideoUpscaler object at 0x7fd83a206e30>
+                   └ 640
+
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/pydantic/main.py", line 891, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+
+AttributeError: 'RealESRGANSettings' object has no attribute 'scale_factor'
+2025-01-22 19:08:04 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:08:04 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:08:04 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:14:27 | INFO     | api.storage:upload_video:27 - Uploading video (11229431 bytes) to videos/18f87472-ce66-40f9-a84a-0452c2ac850c/enhanced.mp4
+2025-01-22 19:14:30 | INFO     | api.storage:upload_video:39 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/18f87472-ce66-40f9-a84a-0452c2ac850c/enhanced.mp4
+2025-01-22 19:14:30 | ERROR    | __mp_main__:predict:164 - Processing failed
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 3
+               │     └ 12
+               └ <function _main at 0x7faba0665630>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 3
+           │    └ <function BaseProcess._bootstrap at 0x7faba07bfbe0>
+           └ <SpawnProcess name='SpawnProcess-3' parent=31645 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7faba07bf250>
+    └ <SpawnProcess name='SpawnProcess-3' parent=31645 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-3' parent=31645 started>
+    │    │        │    └ (<__mp_main__.VideoEnhancerAPI object at 0x7faba069ee00>, None, 'cuda:0', 0, <AutoProxy[Queue] object, typeid 'Queue' at 0x7f...
+    │    │        └ <SpawnProcess name='SpawnProcess-3' parent=31645 started>
+    │    └ <function inference_worker at 0x7fab9ea4e710>
+    └ <SpawnProcess name='SpawnProcess-3' parent=31645 started>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/loops.py", line 84, in inference_worker
+    loop(
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7fa9a3a77280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 134, in __call__
+    self.run_single_loop(lit_api, lit_spec, request_queue, response_queues, callback_runner)
+    │    │               │        │         │              │                └ <litserve.callbacks.base.CallbackRunner object at 0x7fa9a3a76530>
+    │    │               │        │         │              └ [<AutoProxy[Queue] object, typeid 'Queue' at 0x7fa9a3a772b0>]
+    │    │               │        │         └ <AutoProxy[Queue] object, typeid 'Queue' at 0x7fa9a39e5420>
+    │    │               │        └ None
+    │    │               └ <__mp_main__.VideoEnhancerAPI object at 0x7faba069ee00>
+    │    └ <function SingleLoop.run_single_loop at 0x7fab9ea4e4d0>
+    └ <litserve.loops.simple_loops.SingleLoop object at 0x7fa9a3a77280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 75, in run_single_loop
+    y = _inject_context(
+        └ <function _inject_context at 0x7fab9e9e8280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/base.py", line 41, in _inject_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ ({'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABAA...
+           └ <bound method VideoEnhancerAPI.predict of <__mp_main__.VideoEnhancerAPI object at 0x7faba069ee00>>
+
+> File "/home/jovyan/video-enhancer/api/serve_enhancer.py", line 156, in predict
+    "processing_time_sec": result["processing_time_sec"],
+                           └ {'video_url': '/home/jovyan/video-enhancer/outputs/tmp4t0uisyv/tmp4t0uisyv_out.mp4', 'input_resolution': {'width': 640, 'heig...
+
+KeyError: 'processing_time_sec'
+2025-01-22 19:20:27 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:20:27 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:20:27 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:20:27 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:20:27 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:20:27 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:20:27 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:20:27 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:20:27 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:20:27 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:20:28 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:20:28 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:20:57 | ERROR    | __mp_main__:predict:164 - Processing failed
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 3
+               │     └ 12
+               └ <function _main at 0x7f7a503f5630>
+  File "/usr/lib/python3.10/multiprocessing/spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 3
+           │    └ <function BaseProcess._bootstrap at 0x7f7a5054bbe0>
+           └ <SpawnProcess name='SpawnProcess-3' parent=35440 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7a5054b250>
+    └ <SpawnProcess name='SpawnProcess-3' parent=35440 started>
+  File "/usr/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-3' parent=35440 started>
+    │    │        │    └ (<__mp_main__.VideoEnhancerAPI object at 0x7f7a5042ee00>, None, 'cuda:0', 0, <AutoProxy[Queue] object, typeid 'Queue' at 0x7f...
+    │    │        └ <SpawnProcess name='SpawnProcess-3' parent=35440 started>
+    │    └ <function inference_worker at 0x7f7a4e8da710>
+    └ <SpawnProcess name='SpawnProcess-3' parent=35440 started>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/loops.py", line 84, in inference_worker
+    loop(
+    └ <litserve.loops.simple_loops.BatchedLoop object at 0x7f7853777670>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 245, in __call__
+    self.run_batched_loop(
+    │    └ <function BatchedLoop.run_batched_loop at 0x7f7a4e8da5f0>
+    └ <litserve.loops.simple_loops.BatchedLoop object at 0x7f7853777670>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/simple_loops.py", line 191, in run_batched_loop
+    y = _inject_context(contexts, lit_api.predict, x)
+        │               │         │       │        └ [{'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABAA...
+        │               │         │       └ <function VideoEnhancerAPI.predict at 0x7f78536fca60>
+        │               │         └ <__mp_main__.VideoEnhancerAPI object at 0x7f7a5042ee00>
+        │               └ [{}]
+        └ <function _inject_context at 0x7f7a4e874280>
+  File "/home/jovyan/video-enhancer/.venv/lib/python3.10/site-packages/litserve/loops/base.py", line 41, in _inject_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ ([{'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABA...
+           └ <bound method VideoEnhancerAPI.predict of <__mp_main__.VideoEnhancerAPI object at 0x7f7a5042ee00>>
+
+> File "/home/jovyan/video-enhancer/api/serve_enhancer.py", line 119, in predict
+    video_base64 = request.get("video_base64")
+                   └ [{'video_base64': 'AAAAGGZ0eXBtcDQyAAAAAGlzb21tcDQyAAAjgG1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAGJqAAEAAAEAAAAAAAAAAAAAAAABAA...
+
+AttributeError: 'list' object has no attribute 'get'
+2025-01-22 19:22:52 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:22:52 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:22:52 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:22:52 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:22:52 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:22:52 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:22:52 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:22:52 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:22:52 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:22:52 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:22:52 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:22:52 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:29:22 | INFO     | api.storage:upload_video:27 - Uploading video (11229431 bytes) to videos/a63c8d5b-8f34-491b-9e38-8a0e376df506/enhanced.mp4
+2025-01-22 19:29:23 | INFO     | api.storage:upload_video:39 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/a63c8d5b-8f34-491b-9e38-8a0e376df506/enhanced.mp4
+2025-01-22 19:30:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:30:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:30:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:30:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-22 19:30:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:30:49 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:30:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:30:49 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:30:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:30:49 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:30:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-22 19:30:49 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
+2025-01-22 19:37:55 | INFO     | api.storage:upload_video:27 - Uploading video (11229431 bytes) to videos/e8c5cd4b-0f9d-4cff-a98b-eab158c365fe/enhanced.mp4
+2025-01-22 19:37:55 | INFO     | api.storage:upload_video:39 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/e8c5cd4b-0f9d-4cff-a98b-eab158c365fe/enhanced.mp4
