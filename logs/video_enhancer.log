@@ -1,0 +1,92 @@
+2025-01-22 16:36:59 | INFO     | __main__:__init__:174 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:36:59 | ERROR    | __main__:<module>:574 - Error during video processing: Video processing failed with return code 2
+2025-01-22 16:37:18 | INFO     | __main__:__init__:174 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:37:18 | ERROR    | __main__:<module>:574 - Error during video processing: Video processing failed with return code 2
+2025-01-22 16:51:23 | INFO     | __main__:__init__:169 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 16:57:46 | INFO     | __main__:<module>:566 - Video processing completed: {
+  "video_url": "/home/jovyan/video-enhancer/outputs/hxh/hxh_out.mp4",
+  "input_resolution": {
+    "width": 640,
+    "height": 360
+  },
+  "output_resolution": {
+    "width": 2560,
+    "height": 1440
+  },
+  "processing_time": 73.21,
+  "ram_usage_mb": 462.07,
+  "model_settings": {
+    "model_name": "realesr-animevideov3",
+    "scale": 4,
+    "tile": 0,
+    "face_enhance": false,
+    "fp32": false
+  },
+  "ssim_score": 0.948
+}
+2025-01-22 17:23:20 | INFO     | __main__:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: /home/jovyan/video-enhancer/scripts/hxh.mp4
+)
+2025-01-22 17:29:39 | INFO     | __main__:<module>:580 - Video processing completed: {
+  "video_url": "/home/jovyan/video-enhancer/outputs/hxh/hxh_out.mp4",
+  "input_resolution": {
+    "width": 640,
+    "height": 360
+  },
+  "output_resolution": {
+    "width": 2560,
+    "height": 1440
+  },
+  "processing_time": 68.14,
+  "ram_usage_mb": 447.75,
+  "model_settings": {
+    "model_name": "realesr-animevideov3",
+    "scale": 4,
+    "tile": 0,
+    "face_enhance": false,
+    "fp32": false
+  },
+  "ssim_score": 0.948
+}

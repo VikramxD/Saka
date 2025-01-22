@@ -1,0 +1,35 @@
+# Video Enhancer API Configuration
+
+# RealESRGAN Settings
+realesrgan:
+  model_name: RealESRGAN_x4plus  # Model to use for upscaling
+  device: cuda  # Device to run inference on (cuda/cpu)
+  tile_size: 0  # Tile size for inference (0 for no tiling)
+  tile_pad: 10  # Padding size for tiles
+  pre_pad: 0  # Pre-padding size
+  fp32: true  # Use FP32 precision
+  scale: 4  # Upscaling factor
+
+# Prometheus Metrics Settings
+prometheus:
+  prefix: video_enhancer  # Metric name prefix
+  path: /metrics  # Metrics endpoint path
+  enabled: true  # Enable Prometheus metrics
+
+# API Settings
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 1
+  timeout: 300  # Request timeout in seconds
+  max_video_size: 104857600  # Maximum video size in bytes (100MB)
+  allowed_extensions:
+    - .mp4
+    - .avi
+    - .mkv
+    - .mov
+
+# Temporary File Settings
+temp:
+  directory: /tmp/video-enhancer
+  cleanup_interval: 3600  # Cleanup interval in seconds

@@ -20,7 +20,7 @@ ENV/
 *.swo
 
 # Logs and databases
-*.log
+
 *.sqlite3
 *.db
 
@@ -29,7 +29,7 @@ ENV/
 .env.*
 *.pem
 *.key
-configs/settings.py
+
 
 # Temporary files
 *.tmp

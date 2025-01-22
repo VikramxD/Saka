@@ -1,0 +1,20 @@
+# S3 Storage Configuration
+
+s3:
+  access_key: ""  # AWS access key or compatible S3 provider key
+  secret_key: ""  # AWS secret key or compatible S3 provider secret
+  endpoint_url: ""  # Optional: Custom S3 endpoint URL for non-AWS providers
+  region: us-east-1  # S3 region
+  bucket_name: video-enhancer  # S3 bucket name
+  
+  # Storage settings
+  storage_path: videos  # Base path in the bucket for storing videos
+  url_expiration: 3600  # Presigned URL expiration time in seconds
+  
+  # Upload settings
+  upload_chunk_size: 8388608  # Upload chunk size in bytes (8MB)
+  max_concurrent_uploads: 4  # Maximum number of concurrent upload threads
+  
+  # Retry settings
+  max_retries: 3  # Maximum number of retry attempts for failed operations
+  retry_delay: 1  # Delay between retries in seconds

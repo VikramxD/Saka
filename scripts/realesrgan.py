@@ -99,48 +99,57 @@ def setup_realesrgan(realesrgan_dir: Path) -> Path:
     Raises:
         subprocess.CalledProcessError: If any installation step fails
     """
-    if not realesrgan_dir.exists():
-        logger.info("Cloning Real-ESRGAN repository...")
+    # Remove directory if it exists but is empty
+    if realesrgan_dir.exists():
+        if not any(realesrgan_dir.iterdir()):
+            logger.info("Removing empty Real-ESRGAN directory...")
+            realesrgan_dir.rmdir()
+        else:
+            logger.info("Real-ESRGAN repository already exists")
+            return realesrgan_dir
+
+    # Clone the repository
+    logger.info("Cloning Real-ESRGAN repository...")
+    subprocess.run(
+        ["git", "clone", "https://github.com/xinntao/Real-ESRGAN.git", str(realesrgan_dir)],
+        check=True
+    )
+    
+    # Change to Real-ESRGAN directory
+    original_dir = os.getcwd()
+    os.chdir(str(realesrgan_dir))
+    
+    try:
+        # Check if requirements.txt exists
+        if not os.path.exists('requirements.txt'):
+            logger.error("requirements.txt not found in Real-ESRGAN directory")
+            raise FileNotFoundError("requirements.txt not found in Real-ESRGAN directory")
+            
+        # Install dependencies using uv
+        logger.info("Installing dependencies with uv...")
         subprocess.run(
-            ["git", "clone", "https://github.com/xinntao/Real-ESRGAN.git", str(realesrgan_dir)],
-            check=True
+            ["uv", "pip", "install", "-r", "requirements.txt", "--no-cache"],
+            check=True,
+            capture_output=True,
+            text=True
         )
         
-        # Change to Real-ESRGAN directory
-        original_dir = os.getcwd()
-        os.chdir(str(realesrgan_dir))
+        # Install package in editable mode with all dependencies
+        logger.info("Installing Real-ESRGAN in editable mode...")
+        subprocess.run(
+            ["uv", "pip", "install", "-e", ".", "--no-deps", "--no-build-isolation"],
+            check=True,
+            capture_output=True,
+            text=True
+        )
         
-        try:
-            # Install dependencies using uv
-            logger.info("Installing dependencies with uv...")
-            result = subprocess.run(
-                ["uv", "pip", "install", "-r", "requirements.txt"],
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            logger.debug(f"Dependencies installation output: {result.stdout}")
-            
-            # Install package in editable mode
-            logger.info("Installing Real-ESRGAN in editable mode...")
-            result = subprocess.run(
-                ["uv", "pip", "install", "-e", ".", "--no-build-isolation"],
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            logger.debug(f"Package installation output: {result.stdout}")
-            
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Error during setup: {e.stdout}\n{e.stderr}")
-            raise
-        finally:
-            # Always change back to original directory
-            os.chdir(original_dir)
-            
         logger.success("Real-ESRGAN setup completed successfully")
-    else:
-        logger.info("Real-ESRGAN repository already exists")
+    except Exception as e:
+        logger.error(f"Error during setup: {str(e)}")
+        raise
+    finally:
+        # Always change back to original directory
+        os.chdir(original_dir)
     
     return realesrgan_dir
 
@@ -553,7 +562,7 @@ if __name__ == "__main__":
             
         # Load settings with custom configuration
         settings = UpscalerSettings(
-            model_name="realesr-animevideov3",  # Change model if needed
+            model_name="realesr-animevideov3",   
             scale_factor=4,                      # Change scale factor if needed
             face_enhance=False,                  # Set to True to enhance faces
             use_half_precision=True,             # Set to False for FP32 precision
