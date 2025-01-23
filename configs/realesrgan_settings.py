@@ -32,10 +32,11 @@ Example:
 
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any
 from pydantic import Field, validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# Get project root directory
 PROJECT_ROOT = Path(__file__).parent.parent
 
 class UpscalerSettings(BaseSettings):

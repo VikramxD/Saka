@@ -162,10 +162,30 @@ python -m venv venv
 source venv/bin/activate  # Linux/macOS
 ```
 
+### Docker Setup
 
+To run the application using Docker, you can use the provided Dockerfile and docker-compose.yml:
 
+1. Build and run the Docker container:
+   ```bash
+   docker-compose up --build
+   ```
 
+2. Access the API at `http://localhost:8000` and Prometheus at `http://localhost:9090`.
 
+### Dependencies
+
+The project requires the following key dependencies:
+- **AI and Machine Learning**: `torch`, `gfpgan`, `basicsr`, etc.
+- **Video Processing**: `ffmpeg-python`, `opencv-python`.
+- **Web Frameworks**: `fastapi`, `httpx`.
+- **Monitoring and Logging**: `prometheus-client`, `loguru`.
+
+### Monitoring with Prometheus and Grafana
+
+The application includes monitoring capabilities using Prometheus and Grafana:
+- Prometheus is configured to collect metrics from the API.
+- Grafana can be accessed at `http://localhost:3000` for visualizing metrics.
 
 ## 🔧 Troubleshooting
 

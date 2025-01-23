@@ -181,6 +181,12 @@ class VideoUpscaler:
         setup_logger(settings.log_dir)
         self.settings = settings
         logger.info(f"Initializing VideoUpscaler with settings: {settings}")
+        
+        # Set up Real-ESRGAN if not already installed
+        setup_realesrgan(settings.realesrgan_dir)
+        
+        # Create output directory if it doesn't exist
+        settings.output_dir.mkdir(parents=True, exist_ok=True)
 
     def calculate_spatial_ssim(self, frame1: np.ndarray, frame2: np.ndarray) -> float:
         """
@@ -245,7 +251,6 @@ class VideoUpscaler:
         Raises:
             ValueError: If videos cannot be opened or have no frames
         """
-        # Wait longer for the enhanced video to be fully written
         max_retries = 5
         retry_delay = 2
 
@@ -439,14 +444,32 @@ class VideoUpscaler:
             expand=True
         )
         
-        process = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            bufsize=1,
-            universal_newlines=True
-        )
+        def update_progress(line: str) -> None:
+            if not line:
+                return
+            
+            line = line.strip().lower()
+            
+            try:
+                # Try frame-based pattern first (e.g., "frame: 22/180")
+                if 'frame' in line and '/' in line:
+                    current = int(''.join(filter(str.isdigit, line.split('/')[0])))
+                    total = int(''.join(filter(str.isdigit, line.split('/')[1])))
+                    if total > 0:
+                        percent = (current / total) * 100
+                        progress.update(task_id, completed=percent)
+                
+                # Try percentage pattern (e.g., "50%")
+                elif '%' in line:
+                    percent_str = ''.join(filter(lambda x: x.isdigit() or x == '.', line.split('%')[0]))
+                    if percent_str:
+                        try:
+                            percent = float(percent_str)
+                            progress.update(task_id, completed=percent)
+                        except ValueError:
+                            pass
+            except Exception as e:
+                pass
 
         with progress:
             # Create the main task
@@ -456,63 +479,54 @@ class VideoUpscaler:
                 start=True
             )
 
-            def update_progress(line: str) -> None:
-                if not line:
-                    return
-                
-                line = line.strip().lower()
-                
-                try:
-                    # Try frame-based pattern first (e.g., "frame: 22/180")
-                    if 'frame' in line and '/' in line:
-                        current = int(''.join(filter(str.isdigit, line.split('/')[0])))
-                        total = int(''.join(filter(str.isdigit, line.split('/')[1])))
-                        if total > 0:
-                            percent = (current / total) * 100
-                            progress.update(task_id, completed=percent)
+            # Start the process
+            process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                bufsize=1,
+                universal_newlines=True
+            )
+
+            try:
+                while True:
+                    # Read stdout
+                    output = process.stdout.readline()
+                    if output:
+                        update_progress(output)
                     
-                    # Try percentage pattern (e.g., "50%")
-                    elif '%' in line:
-                        percent_str = ''.join(filter(lambda x: x.isdigit() or x == '.', line.split('%')[0]))
-                        if percent_str:
-                            try:
-                                percent = float(percent_str)
-                                progress.update(task_id, completed=percent)
-                            except ValueError:
-                                pass
-                except Exception as e:
-                    pass
+                    # Read stderr
+                    error = process.stderr.readline()
+                    if error and "error" in error.lower():
+                        logger.error(f"Real-ESRGAN error: {error.strip()}")
+                    
+                    # Check if process is still running
+                    if process.poll() is not None:
+                        break
 
-            # Process output in real-time
-            while True:
-                # Read stdout
-                output = process.stdout.readline()
-                if output:
-                    update_progress(output)
+                # Process any remaining output
+                for line in process.stdout:
+                    update_progress(line)
                 
-                # Read stderr
-                error = process.stderr.readline()
-                if error and "error" in error.lower():
-                    logger.error(f"Real-ESRGAN error: {error.strip()}")
-                
-                # Check if process is still running
-                if process.poll() is not None:
-                    break
-            
-            # Process any remaining output
-            for line in process.stdout:
-                update_progress(line)
-            
-            for line in process.stderr:
-                if "error" in line.lower():
-                    logger.error(f"Real-ESRGAN error: {line.strip()}")
+                for line in process.stderr:
+                    if "error" in line.lower():
+                        logger.error(f"Real-ESRGAN error: {line.strip()}")
 
-            # Ensure progress bar shows completion
-            progress.update(task_id, completed=100)
-        
-        if process.returncode != 0:
-            raise RuntimeError(f"Video processing failed with return code {process.returncode}")
-            
+                # Ensure progress bar shows completion
+                progress.update(task_id, completed=100)
+
+                if process.returncode != 0:
+                    raise RuntimeError(f"Video processing failed with return code {process.returncode}")
+
+            except Exception as e:
+                process.kill()
+                raise e
+
+            finally:
+                process.stdout.close()
+                process.stderr.close()
+
         # Wait for the output file to be fully written
         max_retries = 10
         retry_delay = 1
@@ -570,7 +584,7 @@ if __name__ == "__main__":
         )
         
         # Perform one-time setup of Real-ESRGAN
-        setup_realesrgan(settings.realesrgan_dir)
+        # setup_realesrgan(settings.realesrgan_dir)
         
         # Create upscaler instance
         upscaler = VideoUpscaler(settings)
