@@ -1,45 +1,43 @@
 import os
-import time
 import uuid
-import base64
+import time
 import tempfile
+import base64
 from pathlib import Path
-from typing import Dict, Any, Optional, Union, List
-from loguru import logger
-import litserve as ls
-from fastapi import UploadFile, File, Form, Header, HTTPException
-from prometheus_client import (
-    CollectorRegistry,
-    Histogram,
-    Gauge,
-    multiprocess,
-    make_asgi_app
-)
+from typing import Dict, Any, List
+from prometheus_client import CollectorRegistry, Histogram, make_asgi_app
 import json
-
-from models import VideoResponse, ProcessingMetrics
+import psutil
+import litserve as ls
+from fastapi import UploadFile
+from models import VideoResponse, ProcessingMetrics, VideoRequest
 from scripts.realesrgan import VideoUpscaler
 from api.storage import S3Handler
 from api.rabbitmq_handler import RabbitMQHandler
-from configs.settings import get_settings, PrometheusSettings
+from configs.settings import get_settings
+from loguru import logger
+import requests
 
+# Set up multiprocess metrics directory
 PROMETHEUS_DIR = "/tmp/prometheus_multiproc_dir"
 os.environ["PROMETHEUS_MULTIPROC_DIR"] = PROMETHEUS_DIR
 Path(PROMETHEUS_DIR).mkdir(parents=True, exist_ok=True)
+
+# Clear existing metrics files
+for f in Path(PROMETHEUS_DIR).glob("*.db"):
+    f.unlink()
+
+# Create registry for multiprocess mode
 registry = CollectorRegistry()
-multiprocess.MultiProcessCollector(registry)
 
 class VideoEnhancerMetrics(ls.Logger):
-    """Prometheus metrics logger for video enhancement."""
+    """Prometheus metrics for video enhancement API."""
     
-    def __init__(self, config: PrometheusSettings = None):
+    def __init__(self):
+        """Initialize metrics."""
         super().__init__()
-        if config is None:
-            config = get_settings().prometheus
-        self.config = config
-        prefix = config.prefix
+        prefix = "video_enhancer"
         
-        # Processing time metrics
         self.processing_time = Histogram(
             f"{prefix}_processing_seconds",
             "Time spent processing video",
@@ -47,384 +45,414 @@ class VideoEnhancerMetrics(ls.Logger):
             registry=registry
         )
         
-        # Video metrics
         self.video_size = Histogram(
             f"{prefix}_video_size_bytes",
-            "Size of processed videos",
-            buckets=[1e6, 1e7, 1e8, 1e9],
+            "Size of video in bytes",
+            ["operation"],
             registry=registry
         )
         
-        # Resource metrics
-        self.ram_usage = Gauge(
-            f"{prefix}_ram_usage_bytes",
-            "Current RAM usage",
-            registry=registry,
-            multiprocess_mode='livesum'
+        self.ssim_score = Histogram(
+            f"{prefix}_ssim_score",
+            "SSIM quality score",
+            ["operation"],
+            registry=registry
         )
-        
-        self.gpu_memory = Gauge(
-            f"{prefix}_gpu_memory_bytes",
-            "Current GPU memory usage",
-            registry=registry,
-            multiprocess_mode='livesum'
-        )
-        
-        # Mount metrics endpoint
-        self.mount(path=config.path, app=make_asgi_app(registry=registry))
-
+    
     def process(self, key: str, value: float):
         """Process metrics from API."""
         logger.debug("Processing metric: {} = {}", key, value)
         
         if key == "inference_time":
-            self.processing_time.labels(operation="inference").observe(value)
+            self.processing_time.labels(operation="enhance").observe(value)
         elif key == "video_size":
-            self.video_size.observe(value)
-        elif key == "ram_usage":
-            self.ram_usage.set(value)
-        elif key == "gpu_memory":
-            self.gpu_memory.set(value)
-        elif key.startswith("error_"):
-            logger.error("Error occurred: {}", key)
+            self.video_size.labels(operation="enhance").observe(value)
+        elif key == "ssim_score":
+            self.ssim_score.labels(operation="enhance").observe(value)
 
 class VideoEnhancerAPI(ls.LitAPI):
-    """Video enhancement API with RabbitMQ task queue integration.
+    """Video enhancement API with RabbitMQ task queue integration."""
     
-    This API provides endpoints for video enhancement using Real-ESRGAN,
-    with asynchronous processing via RabbitMQ task queue. It supports:
-    - Asynchronous video processing
-    - Task status tracking
-    - Metrics collection
-    - S3 storage integration
-    
-    The API can run in two modes:
-    1. API mode: Handles HTTP requests and submits tasks to RabbitMQ
-    2. Worker mode: Processes tasks from RabbitMQ queue
-    """
-    
+    def __init__(self):
+        super().__init__()
+        
     def setup(self, device: str):
-        """Initialize API components during startup.
+        """Set up API dependencies."""
+        self.settings = get_settings()
+        self.upscaler = VideoUpscaler(self.settings.realesrgan)
+        self.s3 = S3Handler(self.settings.s3)
+        self.rabbitmq = RabbitMQHandler(self.settings.rabbitmq)
+        logger.info(f"Initialized API with device: {device}")
         
-        Args:
-            device (str): Device to use for processing (e.g., 'cuda:0')
-            
-        Initializes:
-            - Video upscaler model
-            - S3 storage handler
-            - RabbitMQ connection
-            - Metrics collection
-            
-        Raises:
-            Exception: If initialization of any component fails
-        """
+    def decode_request(self, request: Dict[str, Any]) -> Dict[str, Any]:
+        """Decode the incoming request."""
         try:
-            settings = get_settings()
-            
-            # Initialize RabbitMQ
-            self.rabbitmq = RabbitMQHandler(settings.rabbitmq)
-            logger.info("Initialized RabbitMQ connection")
-            
-            # Initialize upscaler if needed
-            if device:
-                self.upscaler = VideoUpscaler(settings.realesrgan)
-                logger.info(f"Initialized video upscaler on {device}")
-            else:
-                self.upscaler = None
-                
-            # Initialize S3 storage
-            self.s3 = S3Handler(settings.s3)
-            logger.info("Initialized S3 storage")
-            
+            # Handle raw request directly
+            return request
         except Exception as e:
-            logger.error(f"Failed to initialize API: {e}")
-            raise
-            
-    def preprocess_request(self, request_data):
-        """Preprocess request before predict.
-        
-        Args:
-            request_data: Raw request data
-            
-        Returns:
-            Preprocessed request data
-        """
-        logger.debug(f"Preprocessing request type: {type(request_data)}")
-        
-        # Extract request from LitServer format
-        if isinstance(request_data, dict):
-            if "inputs" in request_data:
-                # LitServer format with inputs array
-                if not request_data["inputs"]:
-                    return {
-                        "status": "ERROR",
-                        "error": "Empty inputs array"
-                    }
-                request = request_data["inputs"][0]
-            elif "body" in request_data:
-                # LitServer format with body
-                request = request_data["body"]
-                if isinstance(request, str):
-                    try:
-                        request = json.loads(request)
-                    except json.JSONDecodeError as e:
-                        logger.error(f"Failed to decode JSON body: {e}")
-                        return {
-                            "status": "ERROR",
-                            "error": "Invalid JSON in request body"
-                        }
-            else:
-                request = request_data
-        else:
-            request = request_data
-            
-        logger.debug(f"Preprocessed request type: {type(request)}")
-        logger.debug(f"Preprocessed request keys: {request.keys() if isinstance(request, dict) else 'not a dict'}")
-        return request
-            
-    def predict(self, request_data):
-        """Process video enhancement request.
-        
-        Args:
-            request_data: Request data from LitServer
-            
-        Returns:
-            List containing a single response dictionary
-        """
-        logger.debug(f"Raw predict request type: {type(request_data)}")
-        logger.debug(f"Raw predict request keys: {request_data.keys() if isinstance(request_data, dict) else 'not a dict'}")
-        
+            logger.error(f"Error decoding request: {e}")
+            raise ValueError(f"Failed to decode request: {e}")
+
+    def predict(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Process the video enhancement request or check task status."""
         try:
-            # Format request for LitServer
-            if isinstance(request_data, dict):
-                if "inputs" not in request_data and "body" not in request_data:
-                    request_data = {"inputs": [request_data]}
-            else:
-                request_data = {"inputs": [request_data]}
+            # Get request data
+            request_data = data[0]
             
-            # Preprocess request
-            request = self.preprocess_request(request_data)
-            if isinstance(request, dict) and "status" in request and request["status"] == "ERROR":
-                return [request]
-                
-            # Validate request is a dict
-            if not isinstance(request, dict):
-                return [{
-                    "status": "ERROR",
-                    "error": f"Request must be a dictionary, got {type(request)}"
-                }]
+            # Check if this is a task status request
+            if 'task_id' in request_data and 'video' not in request_data:
+                task_id = request_data['task_id']
+                return [self.get_task_status(task_id)]
             
-            # Handle both video upload and status check
-            if "task_id" in request:
-                # Get task status
-                task_id = request["task_id"]
-                if not task_id:
-                    return [{
-                        "status": "ERROR",
-                        "error": "task_id cannot be empty"
-                    }]
-                    
-                # Get task result
-                result = self.rabbitmq.get_result(task_id)
-                if result is None:
-                    return [{
-                        "task_id": task_id,
-                        "status": "PENDING"
-                    }]
-                return [result]
-                
-            # Process new video request
-            if "video_base64" not in request:
-                logger.error(f"Missing video_base64 in request keys: {request.keys()}")
-                return [{
-                    "status": "ERROR",
-                    "error": "video_base64 is required for video upload"
-                }]
-                
-            # Create task and submit to RabbitMQ
+            # Otherwise, handle video enhancement request
+            video_b64 = request_data.get("video", "")
+            calculate_ssim = request_data.get("calculate_ssim", False)
+            webhook_url = request_data.get("webhook_url")
+            
+            if not video_b64:
+                raise ValueError("No video data provided")
+            
+            # Generate task ID
             task_id = str(uuid.uuid4())
+            
+            # Create task data
             task_data = {
                 "task_id": task_id,
-                **request
+                "video_data": video_b64,
+                "calculate_ssim": calculate_ssim,
+                "webhook_url": webhook_url
             }
-            logger.debug(f"Publishing task: {task_data.keys()}")
+            
+            # Submit task to RabbitMQ
             self.rabbitmq.publish_task(task_data)
             
-            response = [{
+            # Return task ID for status checking
+            return [{
+                "status": "pending",
                 "task_id": task_id,
-                "status": "PENDING"
+                "message": "Task submitted successfully"
             }]
-            logger.debug(f"Predict response: {response}")
-            return response
             
         except Exception as e:
-            error_msg = str(e)
-            logger.error(f"Error processing request: {error_msg}")
-            logger.exception(e)  # Log full traceback
-            response = [{
-                "status": "ERROR",
-                "error": error_msg
+            logger.error(f"Error in predict: {e}")
+            return [{
+                "status": "error",
+                "message": str(e)
             }]
-            logger.debug(f"Error response: {response}")
-            return response
 
-    def encode_response(self, output):
-        """Encode the response.
-        
-        Args:
-            output: List containing a single response dictionary
-            
-        Returns:
-            List containing a single encoded response dictionary
-        """
-        return output
-
-    def get_task_status(self, request):
-        """Get the status of a video enhancement task.
-        
-        Args:
-            request: Request data from LitServer
-            
-        Returns:
-            List containing a single task status response
-        """
-        return self.predict(request)
-
-    def process_video_task(self, task_data: Dict[str, Any]):
-        """Process a video task from the RabbitMQ queue.
-        
-        Args:
-            task_data: Dictionary containing task_id and video_base64
-        """
-        temp_file = None
+    def get_task_status(self, task_id: str) -> Dict[str, Any]:
+        """Get status of task from RabbitMQ."""
         try:
-            task_id = task_data["task_id"]
-            video_base64 = task_data["video_base64"]
-            calculate_ssim = task_data.get("calculate_ssim", False)
+            result = self.rabbitmq.get_result(task_id)
+            if result:
+                return result
+            else:
+                return {
+                    "task_id": task_id,
+                    "status": "pending",
+                    "message": "Task is queued for processing"
+                }
+        except Exception as e:
+            logger.error(f"Error getting task status: {e}")
+            return {
+                "task_id": task_id,
+                "status": "error",
+                "message": str(e)
+            }
+
+    def task_status(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Handle task status request."""
+        try:
+            request_data = data[0]
+            task_id = request_data.get("task_id")
+            if not task_id:
+                raise ValueError("No task ID provided")
+                
+            status = self.get_task_status(task_id)
+            return [status]
             
-            logger.info(f"Processing task {task_id}")
+        except Exception as e:
+            logger.error(f"Error getting task status: {e}")
+            return [{
+                "status": "error",
+                "message": str(e)
+            }]
+
+    def process_video(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Process a video enhancement task."""
+        try:
+            # Extract task info
+            task_id = task_data['task_id']
+            video_b64 = task_data['video_data']
+            calculate_ssim = task_data.get('calculate_ssim', False)
             
-            # Decode base64 and save to temp file
-            video_bytes = base64.b64decode(video_base64)
-            temp_file = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
-            temp_file.write(video_bytes)
-            temp_file.close()
+            # Decode base64 video
+            video_data = base64.b64decode(video_b64)
             
-            logger.info(f"Saved video to temporary file: {temp_file.name}")
+            # Save to temporary file
+            with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_in:
+                temp_in.write(video_data)
+                input_path = temp_in.name
+            
+            # Create temp output file
+            with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_out:
+                output_path = temp_out.name
             
             # Process video
-            try:
-                # TODO: Add actual video processing here
-                time.sleep(2)  # Simulate processing
-                
-                # Update task result
-                result = {
-                    "task_id": task_id,
-                    "status": "COMPLETED",
-                    "output_url": "https://example.com/output.mp4"
-                }
-                if calculate_ssim:
-                    result["metrics"] = {"ssim": 0.95}
-                    
-                self.rabbitmq.update_result(task_id, result)
-                logger.info(f"Task {task_id} completed successfully")
-                
-            except Exception as e:
-                error_msg = f"Failed to process video: {str(e)}"
-                logger.error(error_msg)
-                self.rabbitmq.update_result(task_id, {
-                    "task_id": task_id,
-                    "status": "ERROR",
-                    "error": error_msg
-                })
-                
+            start_time = time.time()
+            output_path = self.upscaler.process_video(input_path)
+            processing_time = time.time() - start_time
+            
+            # Calculate metrics
+            input_size = os.path.getsize(input_path) / (1024 * 1024)  # MB
+            output_size = os.path.getsize(output_path) / (1024 * 1024)  # MB
+            
+            # Calculate SSIM if requested
+            ssim_score = None
+            if calculate_ssim:
+                ssim_score = self.upscaler.calculate_st_ssim(Path(input_path), Path(output_path))
+            
+            # Upload to S3
+            s3_key = f"enhanced/{task_id}.mp4"
+            self.s3.upload_file(output_path, s3_key)
+            output_url = self.s3.get_url(s3_key)
+            
+            # Cleanup temp files
+            os.unlink(input_path)
+            os.unlink(output_path)
+            
+            # Prepare metrics
+            metrics = {
+                "input_size_mb": round(input_size, 2),
+                "output_size_mb": round(output_size, 2),
+                "processing_time_sec": round(processing_time, 2)
+            }
+            if ssim_score is not None:
+                metrics["ssim_score"] = round(ssim_score, 4)
+            
+            return {
+                "status": "success",
+                "task_id": task_id,
+                "output_url": output_url,
+                "metrics": metrics,
+                "message": "Video enhancement completed successfully"
+            }
+            
         except Exception as e:
-            logger.error(f"Error processing task: {str(e)}")
-            if task_id:
-                self.rabbitmq.update_result(task_id, {
-                    "task_id": task_id,
-                    "status": "ERROR",
-                    "error": f"Task processing failed: {str(e)}"
-                })
-        finally:
-            # Cleanup temp file
-            if temp_file:
-                try:
-                    os.unlink(temp_file.name)
-                    logger.info(f"Cleaned up temporary file: {temp_file.name}")
-                except Exception as e:
-                    logger.error(f"Failed to cleanup temporary file: {str(e)}")
+            logger.error(f"Error processing video: {e}")
+            return {
+                "status": "error",
+                "task_id": task_data.get('task_id'),
+                "message": str(e)
+            }
 
     def run_consumer(self):
-        """Run in consumer mode to process tasks from RabbitMQ queue.
+        """Run the consumer to process tasks from RabbitMQ."""
+        logger.info("Starting consumer...")
         
-        This method:
-        1. Sets up a connection to RabbitMQ
-        2. Starts consuming tasks from the queue
-        3. Processes each task using process_video_task
-        4. Handles cleanup on shutdown
-        """
+        def callback(ch, method, properties, body):
+            try:
+                # Parse task data
+                task_data = json.loads(body)
+                logger.info(f"Processing task {task_data.get('task_id')}")
+                
+                # Process video
+                result = self.process_video(task_data)
+                
+                # Store result
+                self.rabbitmq.update_result(result['task_id'], result)
+                
+                # Acknowledge message
+                ch.basic_ack(delivery_tag=method.delivery_tag)
+                
+            except Exception as e:
+                logger.error(f"Error in consumer callback: {e}")
+                # Acknowledge message even on error to avoid infinite retries
+                ch.basic_ack(delivery_tag=method.delivery_tag)
+        
+        # Start consuming
         try:
-            logger.info("Starting Video Enhancer in consumer mode...")
-            self.rabbitmq.consume_tasks(self.process_video_task)
+            self.rabbitmq.channel.basic_qos(prefetch_count=1)
+            self.rabbitmq.channel.basic_consume(
+                queue=self.rabbitmq.task_queue,
+                on_message_callback=callback
+            )
+            logger.info("Started consuming from queue")
+            self.rabbitmq.channel.start_consuming()
         except KeyboardInterrupt:
-            logger.info("Shutting down consumer...")
-            self.rabbitmq.close()
+            logger.info("Stopping consumer...")
+            self.rabbitmq.channel.stop_consuming()
         except Exception as e:
-            logger.error(f"Consumer failed: {e}")
-            sys.exit(1)
+            logger.error(f"Consumer error: {e}")
+            raise
 
-if __name__ == "__main__":
-    import multiprocessing
+    def submit_task(self, task_id: str, video_file: UploadFile):
+        """Submit a video enhancement task to the RabbitMQ queue."""
+        try:
+            task_data = {
+                "task_id": task_id,
+                "video_base64": base64.b64encode(video_file.file.read()).decode('utf-8')
+            }
+            self.rabbitmq.publish_task(task_data)
+            
+        except Exception as e:
+            logger.error(f"Error submitting task: {str(e)}")
+            raise Exception(
+                status_code=500,
+                detail=f"Failed to submit task: {str(e)}"
+            )
+            
+class TaskStatusCallback(ls.Callback):
+    """Callback to notify webhook endpoints about task status changes."""
+    
+    def __init__(self):
+        super().__init__()
+        self.tasks = {}  # Store task info
+    
+    def _notify_webhook(self, task_id: str, status: Dict[str, Any]):
+        """Send notification to webhook if configured."""
+        task_info = self.tasks.get(task_id, {})
+        webhook_url = task_info.get('webhook_url')
+        
+        if webhook_url:
+            try:
+                requests.post(webhook_url, json=status)
+                logger.info(f"Notified webhook for task {task_id}")
+            except Exception as e:
+                logger.error(f"Failed to notify webhook for task {task_id}: {e}")
+    
+    def on_after_decode_request(self, lit_api, *args, **kwargs) -> None:
+        """Store task info and notify webhook about task received."""
+        if not kwargs.get('request'):
+            return
+            
+        request = kwargs['request']
+        if not isinstance(request, list):
+            return
+            
+        request_data = request[0]
+        task_id = request_data.get('task_id')
+        webhook_url = request_data.get('webhook_url')
+        
+        if task_id and webhook_url and 'video' in request_data:  # Only track video enhancement tasks
+            self.tasks[task_id] = {
+                'webhook_url': webhook_url,
+                'start_time': time.time()
+            }
+            
+            # Notify webhook about task received
+            status = {
+                'task_id': task_id,
+                'status': 'received',
+                'timestamp': time.time(),
+                'message': 'Task received and queued for processing'
+            }
+            self._notify_webhook(task_id, status)
+    
+    def on_after_predict(self, lit_api, *args, **kwargs) -> None:
+        """Notify webhook about task processing started."""
+        if not kwargs.get('result'):
+            return
+            
+        result = kwargs['result']
+        if not isinstance(result, list):
+            return
+            
+        result_data = result[0]
+        task_id = result_data.get('task_id')
+        if task_id in self.tasks:
+            status = {
+                'task_id': task_id,
+                'status': 'processing',
+                'timestamp': time.time(),
+                'message': 'Task processing started'
+            }
+            self._notify_webhook(task_id, status)
+    
+    def on_after_encode_response(self, lit_api, *args, **kwargs) -> None:
+        """Notify webhook about task completion."""
+        if not kwargs.get('response'):
+            return
+            
+        response = kwargs['response']
+        if not isinstance(response, list):
+            return
+            
+        response_data = response[0]
+        task_id = response_data.get('task_id')
+        if task_id in self.tasks:
+            task_info = self.tasks[task_id]
+            processing_time = time.time() - task_info['start_time']
+            
+            status = {
+                'task_id': task_id,
+                'status': response_data.get('status', 'unknown'),
+                'timestamp': time.time(),
+                'processing_time': processing_time,
+                'message': response_data.get('message', 'Task completed'),
+                'result': response_data
+            }
+            self._notify_webhook(task_id, status)
+            
+            # Cleanup task info
+            del self.tasks[task_id]
+
+def main():
+    """Main entry point for the Video Enhancer API."""
+    import argparse
+    import threading
     
     settings = get_settings()
-    metrics_logger = VideoEnhancerMetrics(settings.prometheus)
     
-    def run_api_server():
-        """Run the API server for handling HTTP requests."""
-        api = VideoEnhancerAPI()
-        server = ls.LitServer(
-            api,
-            accelerator="auto",
-            devices='auto',
-            workers_per_device=settings.api.workers,
-            max_batch_size=16,
-            loggers=[metrics_logger],  # Pass logger as a list
-            track_requests=True
-        )
+    # Initialize API
+    api = VideoEnhancerAPI()
+    
+    # Initialize metrics logger and callbacks
+    metrics_logger = VideoEnhancerMetrics()
+    metrics_logger.mount(path="/metrics", app=make_asgi_app(registry=registry))
+    
+    task_status_callback = TaskStatusCallback()
+    
+    # Start consumer thread
+    def run_consumer():
+        consumer_api = VideoEnhancerAPI()
+        consumer_api.setup("cpu")
+        try:
+            consumer_api.run_consumer()
+        except KeyboardInterrupt:
+            logger.info("Shutting down consumer thread...")
+        except Exception as e:
+            logger.error(f"Consumer thread error: {e}")
+    
+    consumer_thread = threading.Thread(target=run_consumer, daemon=True)
+    consumer_thread.start()
+    logger.info("Started consumer thread")
+    
+    # Create LitServer instance with metrics logger and callbacks
+    server = ls.LitServer(
+        api,
+        accelerator="auto",
+        devices='auto',
+        workers_per_device=settings.api.workers,
+        max_batch_size=16,
+        track_requests=True,
+        loggers=[metrics_logger],
+        callbacks=[task_status_callback]
+    )
+    
+    # Start server
+    logger.info("Starting API server...")
+    try:
         server.run(
             host=settings.api.host,
-            port=settings.api.port
+            port=settings.api.port,
+            workers=settings.api.workers
         )
-    
-    def run_consumer():
-        """Run the consumer for processing tasks."""
-        api = VideoEnhancerAPI()
-        api.setup("cuda:0")
-        api.run_consumer()
-    
-    # Start processes based on mode
-    mode = os.environ.get("MODE", "all").lower()
-    processes = []
-    
-    try:
-        if mode in ["all", "api"]:
-            api_process = multiprocessing.Process(target=run_api_server)
-            api_process.start()
-            processes.append(api_process)
-            logger.info("Started API server process")
-            
-        if mode in ["all", "consumer"]:
-            consumer_process = multiprocessing.Process(target=run_consumer)
-            consumer_process.start()
-            processes.append(consumer_process)
-            logger.info("Started consumer process")
-            
-        for process in processes:
-            process.join()
-            
     except KeyboardInterrupt:
-        logger.info("Shutting down...")
-        for process in processes:
-            process.terminate()
-            process.join()
+        logger.info("Shutting down server...")
+    finally:
+        if hasattr(api, 'rabbitmq'):
+            api.rabbitmq.close()
+
+if __name__ == "__main__":
+    main()

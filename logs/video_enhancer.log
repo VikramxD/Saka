@@ -512,3 +512,1398 @@ AttributeError: 'list' object has no attribute 'get'
 2025-01-22 19:30:49 | INFO     | __mp_main__:setup:96 - Video Enhancer API initialized on device: cuda:0
 2025-01-22 19:37:55 | INFO     | api.storage:upload_video:27 - Uploading video (11229431 bytes) to videos/e8c5cd4b-0f9d-4cff-a98b-eab158c365fe/enhanced.mp4
 2025-01-22 19:37:55 | INFO     | api.storage:upload_video:39 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/e8c5cd4b-0f9d-4cff-a98b-eab158c365fe/enhanced.mp4
+2025-01-25 14:10:40 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:10:40 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:10:40 | INFO     | scripts.realesrgan:setup_realesrgan:105 - Removing empty Real-ESRGAN directory...
+2025-01-25 14:10:40 | INFO     | scripts.realesrgan:setup_realesrgan:105 - Removing empty Real-ESRGAN directory...
+2025-01-25 14:10:40 | ERROR    | __main__:setup:133 - Failed to initialize API: [Errno 2] No such file or directory: '/home/jovyan/video-enhancer/Real-ESRGAN'
+2025-01-25 14:10:40 | INFO     | scripts.realesrgan:setup_realesrgan:112 - Cloning Real-ESRGAN repository...
+2025-01-25 14:10:40 | ERROR    | __main__:run_consumer:387 - Consumer failed: [Errno 2] No such file or directory: '/home/jovyan/video-enhancer/Real-ESRGAN'
+2025-01-25 14:10:42 | INFO     | scripts.realesrgan:setup_realesrgan:129 - Installing dependencies with uv...
+2025-01-25 14:10:42 | INFO     | scripts.realesrgan:setup_realesrgan:138 - Installing Real-ESRGAN in editable mode...
+2025-01-25 14:10:42 | SUCCESS  | scripts.realesrgan:setup_realesrgan:146 - Real-ESRGAN setup completed successfully
+2025-01-25 14:10:42 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:10:42 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:10:42 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:11:30 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:11:30 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:11:30 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:11:30 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:11:30 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:11:30 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:11:31 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:11:31 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:11:31 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:11:31 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:11:31 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:12:47 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:12:47 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:12:47 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:12:47 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:12:47 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:12:47 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:12:47 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:12:47 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:12:47 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:12:47 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:12:47 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:13:10 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:13:10 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:13:10 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:13:10 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:13:10 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:13:10 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:13:10 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:13:10 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:13:10 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:13:10 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:13:10 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:14:19 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:14:19 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:14:19 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:14:19 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:14:19 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:14:19 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:14:19 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:14:19 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:14:19 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:14:19 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:14:19 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:21:40 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:21:40 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:21:40 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:21:40 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:21:40 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:21:40 | INFO     | __main__:setup:121 - Initialized video upscaler on cuda:0
+2025-01-25 14:21:40 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:21:40 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:21:40 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:21:40 | INFO     | __main__:setup:127 - Initialized S3 storage
+2025-01-25 14:21:40 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:23:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:23:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:23:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:23:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:23:21 | INFO     | __main__:setup:135 - Initialized video upscaler on cuda:0
+2025-01-25 14:23:21 | INFO     | __main__:setup:135 - Initialized video upscaler on cuda:0
+2025-01-25 14:23:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:23:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:23:21 | INFO     | __main__:setup:141 - Initialized S3 storage
+2025-01-25 14:23:21 | INFO     | __main__:setup:141 - Initialized S3 storage
+2025-01-25 14:23:21 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:26:22 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:26:22 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:26:22 | INFO     | __main__:setup:158 - Initialized video upscaler on cuda:0
+2025-01-25 14:26:22 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:26:22 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:26:22 | INFO     | __main__:setup:158 - Initialized video upscaler on cuda:0
+2025-01-25 14:26:22 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:26:22 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:26:22 | INFO     | __main__:setup:164 - Initialized S3 storage
+2025-01-25 14:26:22 | INFO     | __main__:setup:164 - Initialized S3 storage
+2025-01-25 14:26:22 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:27:39 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:27:39 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:27:39 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:27:39 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:27:39 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:27:39 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:30:07 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: 'dict' object has no attribute 'method'
+2025-01-25 14:31:10 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: 'dict' object has no attribute 'method'
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:21 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:27 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: No video data in request
+2025-01-25 14:31:53 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:53 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:53 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:53 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:53 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:53 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:54 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:54 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:54 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:54 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:54 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:31:54 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:83 - Initialized video upscaler on cuda:0
+2025-01-25 14:31:54 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:31:54 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:31:54 | INFO     | __mp_main__:setup:89 - Initialized S3 storage
+2025-01-25 14:32:47 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: No video data in request
+2025-01-25 14:38:05 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: No video data in request
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:38:24 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:38:24 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:38:24 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:38:24 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:38:24 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:38:25 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:38:25 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:38:30 | ERROR    | __mp_main__:decode_request:122 - Error decoding request: No input field in request
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:40:02 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:40:02 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:40:02 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:40:02 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:40:02 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:40:02 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:40:06 | ERROR    | __mp_main__:decode_request:102 - Error decoding request: 'input'
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:41:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:41:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:41:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:41:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:41:49 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:41:49 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:43:41 | ERROR    | __mp_main__:predict:157 - Error processing video: 'list' object has no attribute 'get'
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:43:50 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:43:50 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:43:50 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:43:50 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:43:50 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:43:50 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:43:52 | ERROR    | __mp_main__:predict:157 - Error processing video: 'list' object has no attribute 'get'
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:45:20 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:45:20 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:45:20 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:45:20 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:45:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:45:21 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:45:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:45:21 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:45:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:45:21 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:45:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:45:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:45:21 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:45:21 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:45:21 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:45:27 | ERROR    | __mp_main__:predict:159 - Error processing video: VideoUpscaler.process_video() got an unexpected keyword argument 'calculate_ssim'
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:46:37 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 14:46:37 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:84 - Initialized video upscaler on cuda:0
+2025-01-25 14:46:37 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:46:37 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:46:37 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 14:46:37 | INFO     | __mp_main__:setup:90 - Initialized S3 storage
+2025-01-25 14:46:51 | ERROR    | scripts.realesrgan:process_video:502 - Real-ESRGAN error: raise Error('ffprobe', out, err)
+2025-01-25 14:46:51 | ERROR    | scripts.realesrgan:process_video:502 - Real-ESRGAN error: ffmpeg._run.Error: ffprobe error (see stderr output for detail)
+2025-01-25 14:46:52 | ERROR    | __mp_main__:predict:166 - Error processing video: Video processing failed with return code 1
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:11:41 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:11:41 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:11:41 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:11:41 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:11:41 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:11:41 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:11:45 | INFO     | __mp_main__:predict:134 - Processing video of size 1.5MB
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:15:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:15:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:15:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:15:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:90 - Initialized video upscaler on cuda:0
+2025-01-25 15:15:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:15:34 | INFO     | __mp_main__:setup:96 - Initialized S3 storage
+2025-01-25 15:15:41 | INFO     | __mp_main__:predict:134 - Processing video of size 1.5MB
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:19:33 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:19:33 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:19:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:19:34 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:19:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:19:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:19:34 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:19:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:19:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:19:34 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:19:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:19:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:19:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:19:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:19:34 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:19:39 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: cd997cf4-52be-49a4-ab38-2eef6c3c7720
+2025-01-25 15:22:53 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:22:53 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:22:53 | INFO     | __main__:main:300 - Starting API server...
+2025-01-25 15:22:53 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:22:53 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:22:53 | INFO     | __main__:setup:84 - Initialized API with device: cpu
+2025-01-25 15:22:53 | INFO     | __main__:run_consumer:250 - Starting Video Enhancer in consumer mode...
+2025-01-25 15:22:53 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 15:22:53 | INFO     | __main__:process_video_task:152 - Processing video of size 1.5MB
+2025-01-25 15:22:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:22:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:22:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:22:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:22:56 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:22:56 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:22:56 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:22:56 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:22:56 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:22:56 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:22:56 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:22:56 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:22:56 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:22:56 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:22:56 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:22:56 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:22:56 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:22:56 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:22:56 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:22:56 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:23:18 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: 4a3d2cd0-2374-4d5a-ae30-95591be45520
+2025-01-25 15:28:24 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: fa16e4da-90f5-40ff-ac90-158d25505721
+2025-01-25 15:29:15 | ERROR    | __main__:process_video_task:205 - Error processing video: stat: path should be string, bytes, os.PathLike or integer, not dict
+2025-01-25 15:29:15 | INFO     | __main__:process_video_task:152 - Processing video of size 1.5MB
+2025-01-25 15:31:12 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: 8ebf7655-52b6-4ea3-b082-28680e609cb9
+2025-01-25 15:31:58 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:31:58 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:31:58 | INFO     | __main__:main:318 - Starting API server...
+2025-01-25 15:31:59 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:31:59 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:31:59 | INFO     | __main__:setup:84 - Initialized API with device: cpu
+2025-01-25 15:31:59 | INFO     | __main__:run_consumer:268 - Starting Video Enhancer in consumer mode...
+2025-01-25 15:31:59 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 15:31:59 | INFO     | __main__:process_video_task:189 - Processing video of size 1.5MB
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:32:01 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:32:01 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:32:01 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:32:01 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:32:01 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:32:01 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:32:01 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:32:01 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:32:01 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:32:01 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:32:01 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:32:01 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:32:01 | INFO     | __mp_main__:setup:84 - Initialized API with device: cuda:0
+2025-01-25 15:32:09 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: b9140eaa-a4a1-4faf-8596-d10b13074894
+2025-01-25 15:33:11 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: dd7a51be-98b5-4f54-ace7-8ce7b55d4acf
+2025-01-25 15:33:51 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: 10697949-23cd-423e-9db0-7e1970b25414
+2025-01-25 15:44:11 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:44:11 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:44:11 | INFO     | __main__:main:332 - Starting API server...
+2025-01-25 15:44:11 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:44:11 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:44:11 | INFO     | __main__:setup:85 - Initialized API with device: cpu
+2025-01-25 15:44:11 | INFO     | __main__:run_consumer:278 - Starting Video Enhancer in consumer mode...
+2025-01-25 15:44:11 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 15:44:11 | INFO     | __main__:process_video_task:199 - Processing video of size 1.5MB
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:44:13 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:44:13 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:44:13 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:44:13 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:44:13 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:44:13 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:44:13 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:44:13 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:44:13 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:44:13 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:44:13 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:44:13 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:44:13 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:44:17 | INFO     | api.rabbitmq_handler:publish_task:127 - Published task: e3a794af-a2c0-4729-8acd-d5df17849350
+2025-01-25 15:45:32 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:45:32 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:45:32 | INFO     | __main__:main:332 - Starting API server...
+2025-01-25 15:45:32 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:45:32 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:45:32 | INFO     | __main__:setup:85 - Initialized API with device: cpu
+2025-01-25 15:45:32 | INFO     | __main__:run_consumer:278 - Starting Video Enhancer in consumer mode...
+2025-01-25 15:45:32 | INFO     | api.rabbitmq_handler:consume_tasks:179 - Started consuming from queue: video_tasks.tasks
+2025-01-25 15:45:32 | INFO     | __main__:process_video_task:199 - Processing video of size 1.5MB
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: True
+  Output Dir: /home/jovyan/video-enhancer/outputs
+  Real-ESRGAN Dir: /home/jovyan/video-enhancer/Real-ESRGAN
+  Log Dir: /home/jovyan/video-enhancer/logs
+  Input Path: Not set
+)
+2025-01-25 15:45:34 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-25 15:45:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:45:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:45:34 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:45:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:45:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:45:34 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:45:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:45:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:45:34 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-25 15:45:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-25 15:45:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
+2025-01-25 15:45:34 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
