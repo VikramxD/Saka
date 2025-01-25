@@ -1,5 +1,5 @@
 """
-Real-ESRGAN Video Upscaling System.
+Real-ESRGAN Video Upscaling 
 
 This module provides functionality for upscaling videos using the Real-ESRGAN model.
 It handles the complete pipeline from model setup to video processing and quality assessment.
@@ -202,11 +202,8 @@ class VideoUpscaler:
         Returns:
             Spatial SSIM score between 0 and 1
         """
-        # Convert to grayscale
         gray1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
         gray2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
-        
-        # Downscale the upscaled frame to match original dimensions
         if gray2.shape != gray1.shape:
             gray2 = cv2.resize(gray2, (gray1.shape[1], gray1.shape[0]), interpolation=cv2.INTER_AREA)
             

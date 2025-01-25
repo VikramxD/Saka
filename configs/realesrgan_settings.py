@@ -100,7 +100,7 @@ class UpscalerSettings(BaseSettings):
     
     # Processing settings
     calculate_ssim: bool = Field(
-        default=True,
+        default=False,
         description="Whether to calculate SSIM metrics",
         env="REALESRGAN_CALCULATE_SSIM"
     )

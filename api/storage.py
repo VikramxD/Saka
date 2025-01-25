@@ -9,16 +9,23 @@ class S3Handler:
     """Handler for S3 storage operations."""
     
     def __init__(self, config: S3Settings):
-        """Initialize S3 client with configuration."""
+        """Initialize S3 handler with configuration."""
         self.config = config
-        self.client = boto3.client(
-            's3',
-            aws_access_key_id=config.access_key,
-            aws_secret_access_key=config.secret_key,
-            endpoint_url=config.endpoint_url,
-            region_name=config.region
-        )
+        self._client = None
         logger.info("S3 handler initialized for bucket: {}", config.bucket_name)
+    
+    @property
+    def client(self):
+        """Get or create S3 client lazily."""
+        if self._client is None:
+            self._client = boto3.client(
+                's3',
+                aws_access_key_id=self.config.access_key,
+                aws_secret_access_key=self.config.secret_key,
+                endpoint_url=self.config.endpoint_url,
+                region_name=self.config.region
+            )
+        return self._client
 
     def upload_video(self, local_path: Path, s3_path: str) -> str:
         """Upload video to S3 and return the URL."""
