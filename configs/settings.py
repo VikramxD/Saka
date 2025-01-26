@@ -39,7 +39,7 @@ class TempSettings(BaseSettings):
 
 class S3Settings(BaseSettings):
     access_key: str = Field('', description="AWS access key or compatible S3 provider key")
-    secret_key: str = Field(='', description="AWS secret key or compatible S3 provider secret")
+    secret_key: str = Field('', description="AWS secret key or compatible S3 provider secret")
     endpoint_url: Optional[str] = Field(None, description="Optional: Custom S3 endpoint URL")
     region: str = Field("", description="S3 region")
     bucket_name: str = Field("", description="S3 bucket name")

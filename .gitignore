@@ -61,3 +61,9 @@ output/
 results/
 temp/
 .ipynb_checkpoints/
+
+prometheus-2.44.0.linux-amd64/
+prometheus-2.44.0.linux-amd64.tar.gz
+
+grafana-9.5.2/
+grafana-9.5.2.linux-amd64.tar.gz
