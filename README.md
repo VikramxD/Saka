@@ -158,8 +158,3 @@ Start monitoring:
 
 ---
 
-<div align="center">
-  <br>
-  📧 **Contact:** VikramxD  
-  📄 **License:** Apache 2.0  
-</div>
