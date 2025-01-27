@@ -76,7 +76,7 @@
 
 ### Stack
 
-- **RabbitMQ**: Robust message queue for handling requests.
+- **ZeroMQ**: Robust message queue for handling requests.
 - **Prometheus + Grafana**: Self-hosted monitoring and visualization for metrics such as GPU utilization and latency.
 - **Litserve**: Model inference serving with GPU autoscaling, batching, and streaming.
 - **GitHub Actions**: CI/CD pipelines for seamless deployment and testing.
@@ -99,7 +99,7 @@
 
 1. Clone the repository with submodules:
 ```bash
-git clone --recursive https://github.com/your-username/video-enhancer.git
+git clone --recursive https://github.com/vikramxD/video-enhancer.git
 cd video-enhancer
 ```
 
