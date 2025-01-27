@@ -272,8 +272,6 @@ Key metrics tracked:
 ### API Endpoints
 
 - `POST /predict`: Enhance a video
-- `GET /status/{job_id}`: Check job status
-- `GET /result/{job_id}`: Download enhanced video
 
 ### Request Format
 
