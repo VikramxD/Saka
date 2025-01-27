@@ -156,7 +156,6 @@ The project includes a comprehensive monitoring stack with Prometheus and Grafan
    - Error tracking and alerts
 
 3. **Setup and Management**:
-   - Use `setup_monitoring.sh` to install and configure the monitoring stack
    - Use `start_monitoring.sh` to start both Prometheus and Grafana
    - Services are configured to start on the following ports:
      - Prometheus: 9090
