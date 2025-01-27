@@ -100,7 +100,7 @@
 1. Clone the repository with submodules:
 ```bash
 # Clone with submodules
-git clone --recursive https://github.com/suducrates/video-enhancer.git
+git clone --recursive https://github.com/vikramxD/video-enhancer.git
 
 # Or if you've already cloned the repository:
 git submodule init
