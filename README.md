@@ -1,12 +1,16 @@
 
 <div align='center'>
 
-# Video Super Resolution Enhancer API  
-<strong>AI-Powered Video Upscaling with Real-ESRGAN and LitServe</strong>    
+# Saka  
+ A Simple Video Enhancer 
+
+<img src="https://pplx-res.cloudinary.com/image/upload/v1738005540/user_uploads/NmCTpsdXUngkQDQ/Ideogram-V2-Image.jpg" alt="Saka Logo" width="300"/>
+
 </div>
 
----
+<div align = 'center'>
 
+    
 ## 🚀 Key Features
 
 | **AI Capabilities**          | **Performance**              | **Infrastructure**        |
@@ -16,7 +20,9 @@
 | ✨ Artifact Removal           | 🔄 Async Processing           | 📈 Quality Metrics (SSIM)  |
 | 🤖 Face Enhancement           | 📦 Batch Processing           | 🐳 Docker/K8s Ready       |
 
----
+
+
+</div>
 
 ## 🏗 Architecture Overview
 
@@ -52,9 +58,9 @@ server = LitServer(
     max_batch_size=16
 )
 ```
-- **LitServe Integration**: Native GPU autoscaling and dynamic batching
-- **Real-ESRGAN Pipeline**: Direct model execution without queues
-- **Metrics Integration**: Built-in Prometheus monitoring
+- **LitServe Integration:** Native GPU autoscaling and dynamic batching
+- **Real-ESRGAN Pipeline:** Direct model execution without queues
+- **Metrics Integration:** Built-in Prometheus monitoring
 
 ### Key Configuration (`configs/settings.py`)
 ```
@@ -75,8 +81,8 @@ class Settings(BaseSettings):
 
 ### Installation
 ```
-git clone --recursive https://github.com/vikramxD/video-enhancer.git
-cd video-enhancer
+git clone --recursive https://github.com/vikramxD/saka.git
+cd saka
 
 # Install dependencies
 pip install -r requirements.txt
@@ -89,7 +95,7 @@ cp .env.example .env
 ```
 # docker-compose.yml
 services:
-  video-enhancer:
+  saka:
     build: .
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
@@ -119,7 +125,7 @@ print(f"Enhanced URL: {result['output_url']}")
 
 ## 📊 Monitoring Stack
 
-![Grafana Dashboard](https://placehold.co/800x400/EEE/31343C?text=Video+Enhancer+Metrics)
+![Grafana Dashboard](https://placehold.co/800x400/EEE/31343C?text=Saka+Metrics)
 
 Tracked Metrics:
 - GPU Utilization
@@ -136,26 +142,6 @@ Start monitoring:
 
 ---
 
-## 🧩 Key Components
-
-### Model Processing (`scripts/realesrgan.py`)
-```
-class VideoUpscaler:
-    def process_video(self, video_path):
-        cmd = [
-            "python", "inference_realesrgan_video.py",
-            "-n", self.settings.model_name,
-            "-s", str(self.settings.scale_factor)
-        ]
-```
-
-### Performance Features
-- Automatic mixed precision (FP16/FP32)
-- Tile-based processing for large videos
-- Face enhancement options
-- Spatial-temporal quality metrics
-
-
 ## 📚 Documentation Structure
 
 ```
@@ -165,7 +151,7 @@ class VideoUpscaler:
 │   └── storage.py         # S3 integration
 ├── configs/
 │   ├── settings.py        # Main configuration
-│   └── realesrgan.py       # Model settings
+│   └── realesrgan.py      # Model settings
 └── scripts/
     └── realesrgan.py      # Processing pipeline
 ```
@@ -174,4 +160,6 @@ class VideoUpscaler:
 
 <div align="center">
   <br>
-  📧 **Contact**:VikramxD | 📄 **License**: Apache 2.0
+  📧 **Contact:** VikramxD  
+  📄 **License:** Apache 2.0  
+</div>
