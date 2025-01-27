@@ -18,7 +18,7 @@
 | 🔥 2x/4x Video Upscaling      | ⚡ GPU Auto-Scaling           | 📊 Real-time Monitoring    |
 | 🎨 Anime-Optimized Models     | 🚀 Dynamic Batching           | 🔐 S3-Compatible Storage   |
 | ✨ Artifact Removal           | 🔄 Async Processing           | 📈 Quality Metrics (SSIM)  |
-| 🤖 Face Enhancement           | 📦 Batch Processing           | 🐳 Docker/K8s Ready       |
+| 🤖 Face Enhancement           | 📦 Batch Processing           | 🐳 Docker        |
 
 
 
