@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: 'video-enhancer'
+    static_configs:
+      - targets: ['localhost:8000']
+    metrics_path: '/metrics'
+    scrape_timeout: 25s
+    scheme: 'http'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'video-enhancer'
+
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+    metrics_path: '/metrics'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []

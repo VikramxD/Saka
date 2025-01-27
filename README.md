@@ -99,12 +99,8 @@
 
 1. Clone the repository with submodules:
 ```bash
-# Clone with submodules
-git clone --recursive https://github.com/vikramxD/video-enhancer.git
-
-# Or if you've already cloned the repository:
-git submodule init
-git submodule update
+git clone --recursive https://github.com/your-username/video-enhancer.git
+cd video-enhancer
 ```
 
 2. Install dependencies:
@@ -112,13 +108,67 @@ git submodule update
 pip install -r requirements.txt
 ```
 
-3. (Optional) Install FFmpeg if not already installed:
+3. Configure S3 settings:
+   - Copy `.env.example` to `.env`
+   - Update the following S3 configuration in `.env`:
+     ```env
+     S3_ACCESS_KEY=your_access_key
+     S3_SECRET_KEY=your_secret_key
+     S3_REGION=your_region
+     S3_BUCKET_NAME=your_bucket_name
+     S3_ENDPOINT_URL=your_endpoint_url  # Optional: for custom S3 providers
+     ```
+
+4. Set up the monitoring stack:
 ```bash
-# Ubuntu/Debian
-sudo apt-get update && sudo apt-get install ffmpeg
+# Make the setup script executable
+chmod +x setup_monitoring.sh
 
+# Run the setup script
+./setup_monitoring.sh
 
+# Start the monitoring stack
+./monitoring/start_monitoring.sh
 ```
+
+The monitoring stack will be available at:
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (default login: admin/admin)
+
+----
+
+### Monitoring with Prometheus and Grafana
+
+The project includes a comprehensive monitoring stack with Prometheus and Grafana for real-time metrics visualization:
+
+1. **Metrics Collected**:
+   - GPU Utilization
+   - Memory Usage
+   - Model Inference FPS
+   - Request Latency
+   - Queue Size
+   - Error Rates
+
+2. **Grafana Dashboards**:
+   - Pre-configured dashboard for video enhancement metrics
+   - Real-time performance monitoring
+   - Resource utilization graphs
+   - Error tracking and alerts
+
+3. **Setup and Management**:
+   - Use `setup_monitoring.sh` to install and configure the monitoring stack
+   - Use `start_monitoring.sh` to start both Prometheus and Grafana
+   - Services are configured to start on the following ports:
+     - Prometheus: 9090
+     - Grafana: 3000
+
+4. **Custom Metrics**:
+   - Prometheus endpoint exposed at `/metrics`
+   - Custom metrics for video processing status
+   - Batch processing performance metrics
+   - GPU memory allocation tracking
+
+----
 
 ## 💡 Usage
 

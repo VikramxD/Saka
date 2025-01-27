@@ -74,12 +74,9 @@ def batch_enhance(video_dir: Path, max_workers: int = 3) -> List[dict]:
     return results
 
 if __name__ == "__main__":
-    # Directory containing videos to enhance
-    video_dir = Path("../scripts")  # Update this path to where your videos are
-    
+    video_dir = Path("../scripts")
     print(f"Starting batch enhancement of videos in {video_dir}")
     start_time = time.time()
-    
     try:
         results = batch_enhance(video_dir)
         
