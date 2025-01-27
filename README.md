@@ -26,7 +26,7 @@
 
 ## 🏗 Architecture Overview
 
-```
+```mermaid
 flowchart TD
     A[Client Request] --> B[LitServe API]
     B --> C[Model Registry]
