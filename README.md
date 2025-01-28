@@ -20,14 +20,15 @@
 
 <h2>&#10024; Key Features</h2>
 
+<div align="center">
 <table>
     <tr>
-        <th>Category</th>
-        <th>Features</th>
+        <th align="center">Category</th>
+        <th align="center">Features</th>
     </tr>
     <tr>
-        <td><strong>Enhancement Capabilities</strong></td>
-        <td>
+        <td align="center"><strong>Enhancement Capabilities</strong></td>
+        <td align="center">
             &#8226; 2x/4x Video Upscaling<br>
             &#8226; Anime-Optimized Processing<br>
             &#8226; Artifact Removal<br>
@@ -35,8 +36,8 @@
         </td>
     </tr>
     <tr>
-        <td><strong>Performance</strong></td>
-        <td>
+        <td align="center"><strong>Performance</strong></td>
+        <td align="center">
             &#8226; GPU Auto-Scaling<br>
             &#8226; Dynamic Batch Processing<br>
             &#8226; Asynchronous Operations<br>
@@ -44,8 +45,8 @@
         </td>
     </tr>
     <tr>
-        <td><strong>Infrastructure</strong></td>
-        <td>
+        <td align="center"><strong>Infrastructure</strong></td>
+        <td align="center">
             &#8226; S3-Compatible Storage<br>
             &#8226; Real-time Monitoring<br>
             &#8226; Docker Support<br>
@@ -53,10 +54,12 @@
         </td>
     </tr>
 </table>
+</div>
 
 <h2>&#127969; System Architecture</h2>
 
-<pre><code class="mermaid">flowchart TD
+```mermaid
+flowchart TD
     A[Client] -->|HTTP Request| B[serve_enhancer.py]
     B -->|Load Model| C[Real-ESRGAN]
     B -->|Config| D[configs/]
@@ -82,7 +85,7 @@
     subgraph Storage
         G
     end
-</code></pre>
+```
 
 <h2>&#128640; Getting Started</h2>
 
@@ -166,33 +169,35 @@ saka enhance video.mp4 --scale 4 --quality high --model anime</code></pre>
 
 <h3>Available Environment Variables</h3>
 
+<div align="center">
 <table>
     <tr>
-        <th>Variable</th>
-        <th>Description</th>
-        <th>Default</th>
+        <th align="center">Variable</th>
+        <th align="center">Description</th>
+        <th align="center">Default</th>
     </tr>
     <tr>
-        <td><code>SAKA_MODEL_PATH</code></td>
-        <td>Path to model weights</td>
-        <td><code>./models</code></td>
+        <td align="center"><code>SAKA_MODEL_PATH</code></td>
+        <td align="center">Path to model weights</td>
+        <td align="center"><code>./models</code></td>
     </tr>
     <tr>
-        <td><code>SAKA_GPU_IDS</code></td>
-        <td>GPUs to use (comma-separated)</td>
-        <td><code>0</code></td>
+        <td align="center"><code>SAKA_GPU_IDS</code></td>
+        <td align="center">GPUs to use (comma-separated)</td>
+        <td align="center"><code>0</code></td>
     </tr>
     <tr>
-        <td><code>SAKA_BATCH_SIZE</code></td>
-        <td>Processing batch size</td>
-        <td><code>4</code></td>
+        <td align="center"><code>SAKA_BATCH_SIZE</code></td>
+        <td align="center">Processing batch size</td>
+        <td align="center"><code>4</code></td>
     </tr>
     <tr>
-        <td><code>SAKA_API_PORT</code></td>
-        <td>API server port</td>
-        <td><code>8000</code></td>
+        <td align="center"><code>SAKA_API_PORT</code></td>
+        <td align="center">API server port</td>
+        <td align="center"><code>8000</code></td>
     </tr>
 </table>
+</div>
 
 <h2>&#128202; Monitoring</h2>
 
