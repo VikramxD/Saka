@@ -1,90 +1,139 @@
 <div align='center'>
 
-# Saka
-### A Modern AI-Powered Video Enhancement Microservice
+<h1>Saka</h1>
+<h3>A Modern AI-Powered Video Enhancement Microservice</h3>
 
 <img src="https://pplx-res.cloudinary.com/image/upload/v1738005540/user_uploads/NmCTpsdXUngkQDQ/Ideogram-V2-Image.jpg" alt="Saka Logo" width="300"/>
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![CUDA 11.8+](https://img.shields.io/badge/CUDA-11.8+-green.svg)](https://developer.nvidia.com/cuda-toolkit)
-[![Docker](https://img.shields.io/badge/Docker-20.10+-blue.svg)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<p>
+    <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python 3.10+"></a>
+    <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-11.8+-green.svg" alt="CUDA 11.8+"></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-20.10+-blue.svg" alt="Docker"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+</p>
 
 </div>
 
-## 📋 Overview
+<h2>&#127760; Overview</h2>
 
-Saka is a high-performance video enhancement platform that leverages state-of-the-art AI models to upscale and improve video quality. Built with scalability and performance in mind, it offers both API and CLI interfaces for seamless integration into existing workflows.
+<p>Saka is a high-performance video enhancement platform that leverages state-of-the-art AI models to upscale and improve video quality. Built with scalability and performance in mind, it offers both API and CLI interfaces for seamless integration into existing workflows.</p>
 
-## ✨ Key Features
+<h2>&#10024; Key Features</h2>
 
-| Category | Features |
-|----------|----------|
-| **Enhancement Capabilities** | • 2x/4x Video Upscaling<br>• Anime-Optimized Processing<br>• Artifact Removal<br>• Face Enhancement |
-| **Performance** | • GPU Auto-Scaling<br>• Dynamic Batch Processing<br>• Asynchronous Operations<br>• Multi-GPU Support |
-| **Infrastructure** | • S3-Compatible Storage<br>• Real-time Monitoring<br>• Docker Support<br>• Quality Metrics (SSIM) |
+<table>
+    <tr>
+        <th>Category</th>
+        <th>Features</th>
+    </tr>
+    <tr>
+        <td><strong>Enhancement Capabilities</strong></td>
+        <td>
+            &#8226; 2x/4x Video Upscaling<br>
+            &#8226; Anime-Optimized Processing<br>
+            &#8226; Artifact Removal<br>
+            &#8226; Face Enhancement
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Performance</strong></td>
+        <td>
+            &#8226; GPU Auto-Scaling<br>
+            &#8226; Dynamic Batch Processing<br>
+            &#8226; Asynchronous Operations<br>
+            &#8226; Multi-GPU Support
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Infrastructure</strong></td>
+        <td>
+            &#8226; S3-Compatible Storage<br>
+            &#8226; Real-time Monitoring<br>
+            &#8226; Docker Support<br>
+            &#8226; Quality Metrics (SSIM)
+        </td>
+    </tr>
+</table>
 
-## 🏗 System Architecture
+<h2>&#127969; System Architecture</h2>
 
-```mermaid
-flowchart TD
-    A[Client Request] --> B[LitServe API]
-    B --> C[Model Registry]
-    C --> D[GPU Cluster]
-    D --> E[S3 Storage]
-    D --> F[Prometheus]
-    F --> G[Grafana Dashboard]
-    B --> H[Result Notification]
-```
+<pre><code class="mermaid">flowchart TD
+    A[Client] -->|HTTP Request| B[serve_enhancer.py]
+    B -->|Load Model| C[Real-ESRGAN]
+    B -->|Config| D[configs/]
+    C -->|Process| E[GPU Processing]
+    E -->|Enhanced Video| F[storage.py]
+    F -->|Store| G[S3/Local Storage]
+    B -->|Metrics| H[Prometheus]
+    H -->|Monitor| I[Grafana]
+    
+    subgraph Saka Microservice
+        B
+        C
+        D
+        E
+        F
+    end
+    
+    subgraph Monitoring
+        H
+        I
+    end
+    
+    subgraph Storage
+        G
+    end
+</code></pre>
 
-## 🚀 Getting Started
+<h2>&#128640; Getting Started</h2>
 
-### Prerequisites
+<h3>Prerequisites</h3>
 
-- NVIDIA GPU with CUDA 11.8+
-- Docker 20.10+ (for containerized deployment)
-- Python 3.10+
-- 16GB+ RAM recommended
+<ul>
+    <li>NVIDIA GPU with CUDA 11.8+</li>
+    <li>Docker 20.10+ (for containerized deployment)</li>
+    <li>Python 3.10+</li>
+    <li>16GB+ RAM recommended</li>
+</ul>
 
-### Installation
+<h3>Installation</h3>
 
-1. **Clone the Repository**
-   ```bash
-   git clone --recursive https://github.com/vikramxD/saka.git
-   cd saka
-   ```
+<ol>
+    <li>
+        <strong>Clone the Repository</strong>
+        <pre><code>git clone --recursive https://github.com/vikramxD/saka.git
+cd saka</code></pre>
+    </li>
+    <li>
+        <strong>Set Up Python Environment</strong>
+        <pre><code>python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+pip install -r requirements.txt</code></pre>
+    </li>
+    <li>
+        <strong>Configure Environment</strong>
+        <pre><code>cp .env.example .env
+# Edit .env with your configuration</code></pre>
+    </li>
+</ol>
 
-2. **Set Up Python Environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+<h3>Docker Deployment</h3>
 
-3. **Configure Environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
+<ol>
+    <li>
+        <strong>Build and Run with Docker Compose</strong>
+        <pre><code>docker-compose up -d</code></pre>
+    </li>
+    <li>
+        <strong>Check Service Status</strong>
+        <pre><code>docker-compose ps</code></pre>
+    </li>
+</ol>
 
-### Docker Deployment
+<h2>&#128187; Usage</h2>
 
-1. **Build and Run with Docker Compose**
-   ```bash
-   docker-compose up -d
-   ```
+<h3>API Interface</h3>
 
-2. **Check Service Status**
-   ```bash
-   docker-compose ps
-   ```
-
-## 💻 Usage
-
-### API Interface
-
-```python
-from saka.client import VideoEnhancerClient
+<pre><code>from saka.client import VideoEnhancerClient
 
 # Initialize client
 client = VideoEnhancerClient()
@@ -96,104 +145,126 @@ result = client.enhance_video(
     calculate_ssim=True
 )
 
-print(f"Enhanced video available at: {result['output_url']}")
-```
+print(f"Enhanced video available at: {result['output_url']}")</code></pre>
 
-### CLI Interface
+<h3>CLI Interface</h3>
 
-```bash
-# Basic enhancement
+<pre><code># Basic enhancement
 saka enhance video.mp4 --output enhanced.mp4
 
 # Advanced options
-saka enhance video.mp4 --scale 4 --quality high --model anime
-```
+saka enhance video.mp4 --scale 4 --quality high --model anime</code></pre>
 
-## 🔧 Configuration
+<h2>&#128206; Configuration</h2>
 
-### Core Settings (`configs/settings.py`)
+<h3>Core Settings (<code>configs/settings.py</code>)</h3>
 
-```python
-class Settings(BaseSettings):
+<pre><code>class Settings(BaseSettings):
     realesrgan: UpscalerSettings = UpscalerSettings()
     api: APISettings = APISettings()
-    s3: S3Settings = S3Settings()
-```
+    s3: S3Settings = S3Settings()</code></pre>
 
-### Available Environment Variables
+<h3>Available Environment Variables</h3>
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SAKA_MODEL_PATH` | Path to model weights | `./models` |
-| `SAKA_GPU_IDS` | GPUs to use (comma-separated) | `0` |
-| `SAKA_BATCH_SIZE` | Processing batch size | `4` |
-| `SAKA_API_PORT` | API server port | `8000` |
+<table>
+    <tr>
+        <th>Variable</th>
+        <th>Description</th>
+        <th>Default</th>
+    </tr>
+    <tr>
+        <td><code>SAKA_MODEL_PATH</code></td>
+        <td>Path to model weights</td>
+        <td><code>./models</code></td>
+    </tr>
+    <tr>
+        <td><code>SAKA_GPU_IDS</code></td>
+        <td>GPUs to use (comma-separated)</td>
+        <td><code>0</code></td>
+    </tr>
+    <tr>
+        <td><code>SAKA_BATCH_SIZE</code></td>
+        <td>Processing batch size</td>
+        <td><code>4</code></td>
+    </tr>
+    <tr>
+        <td><code>SAKA_API_PORT</code></td>
+        <td>API server port</td>
+        <td><code>8000</code></td>
+    </tr>
+</table>
 
-## 📊 Monitoring
+<h2>&#128202; Monitoring</h2>
 
-### Metrics Dashboard
+<h3>Metrics Dashboard</h3>
 
-Access the Grafana dashboard at `http://localhost:3000` with default credentials:
-- Username: `admin`
-- Password: `admin`
+<p>Access the Grafana dashboard at <code>http://localhost:3000</code> with default credentials:</p>
+<ul>
+    <li>Username: <code>admin</code></li>
+    <li>Password: <code>admin</code></li>
+</ul>
 
-### Key Metrics
+<h3>Key Metrics</h3>
 
-- GPU Utilization
-- Processing Latency
-- Memory Usage
-- Batch Processing Efficiency
-- SSIM Quality Scores
+<ul>
+    <li>GPU Utilization</li>
+    <li>Processing Latency</li>
+    <li>Memory Usage</li>
+    <li>Batch Processing Efficiency</li>
+    <li>SSIM Quality Scores</li>
+</ul>
 
-### Setup Monitoring Stack
+<h3>Setup Monitoring Stack</h3>
 
-```bash
-./scripts/setup_monitoring.sh
-```
+<pre><code>./scripts/setup_monitoring.sh</code></pre>
 
-## 📁 Project Structure
+<h2>&#128193; Project Structure</h2>
 
-```
-saka/
-├── api/                 # API implementation
-│   ├── client.py       # Client library
-│   ├── serve.py        # API server
-│   └── storage.py      # Storage handlers
-├── configs/            # Configuration
-│   ├── settings.py     # Core settings
-│   └── models.py       # Model configs
-├── models/             # Model implementations
-├── scripts/            # Utility scripts
-├── tests/              # Test suite
-└── docker/             # Docker configurations
-```
+<pre><code>saka/
+&#9472;&#9472; api/                 # API implementation
+&#9472;&#9472;     &#9472; client.py       # Client library
+&#9472;&#9472;     &#9472; serve.py        # API server
+&#9472;&#9472;     &#9472; storage.py      # Storage handlers
+&#9472;&#9472; configs/            # Configuration
+&#9472;&#9472;     &#9472; settings.py     # Core settings
+&#9472;&#9472;     &#9472; models.py       # Model configs
+&#9472;&#9472; models/             # Model implementations
+&#9472;&#9472; scripts/            # Utility scripts
+&#9472;&#9472; tests/              # Test suite
+&#9472;&#9472; docker/             # Docker configurations</code></pre>
 
-## 🤝 Contributing
+<h2>&#128220; Contributing</h2>
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+<ol>
+    <li>Fork the repository</li>
+    <li>Create your feature branch (<code>git checkout -b feature/amazing-feature</code>)</li>
+    <li>Commit your changes (<code>git commit -m 'Add amazing feature'</code>)</li>
+    <li>Push to the branch (<code>git push origin feature/amazing-feature</code>)</li>
+    <li>Open a Pull Request</li>
+</ol>
 
-## 📝 License
+<h2>&#128214; License</h2>
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
 
-## 🙏 Acknowledgments
+<h2>&#128578; Acknowledgments</h2>
 
-- Real-ESRGAN for the base upscaling models
-- LitServe team for the serving framework
-- The open-source community
+<ul>
+    <li>Real-ESRGAN for the base upscaling models</li>
+    <li>LitServe team for the serving framework</li>
+    <li>The open-source community</li>
+</ul>
 
----
+<hr>
 
 <div align="center">
 
-**Made with ❤️ by VikramxD**
+<p><strong>Made with &#10084; by VikramxD</strong></p>
 
-[Documentation](https://saka-docs.example.com) •
-[Issues](https://github.com/vikramxD/saka/issues) •
-[Contributing](CONTRIBUTING.md)
+<p>
+    <a href="https://saka-docs.example.com">Documentation</a> &#8226;
+    <a href="https://github.com/vikramxD/saka/issues">Issues</a> &#8226;
+    <a href="CONTRIBUTING.md">Contributing</a>
+</p>
 
 </div>
