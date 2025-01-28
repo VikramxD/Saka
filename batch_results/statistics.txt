@@ -1,0 +1,6 @@
+total_videos: 8
+successful: 0
+failed: 8
+avg_inference_time: 0.00
+avg_total_time: 0.04
+avg_ssim: nan

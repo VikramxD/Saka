@@ -71,38 +71,48 @@ setup_prometheus() {
 # Function to setup Grafana
 setup_grafana() {
     echo "Setting up Grafana..."
-    if [ ! -f "${GRAFANA_DIR}/bin/grafana-server" ]; then
-        wget "https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
-        tar xzf "grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
-        mv "grafana-${GRAFANA_VERSION}"/* "${GRAFANA_DIR}/"
-        rm -rf "grafana-${GRAFANA_VERSION}" "grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
-    fi
     
-    # Configure Grafana
+    # Download and extract Grafana
+    wget "https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
+    tar -zxf "grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
+    
+    # Create Grafana directories
+    mkdir -p "${GRAFANA_DIR}/conf/provisioning/datasources"
+    mkdir -p "${GRAFANA_DIR}/conf/provisioning/dashboards"
+    mkdir -p "${GRAFANA_DIR}/dashboards"
+    mkdir -p "${GRAFANA_DIR}/data"
+    
+    # Copy Grafana files
+    cp -r "grafana-${GRAFANA_VERSION}"/* "${GRAFANA_DIR}/"
+    
+    # Copy existing configurations
+    cp -r "${PROJECT_ROOT}/configs/grafana/provisioning/"* "${GRAFANA_DIR}/conf/provisioning/"
+    cp -r "${PROJECT_ROOT}/configs/grafana/dashboards/"* "${GRAFANA_DIR}/dashboards/"
+    
+    # Create custom Grafana config
     cat > "${GRAFANA_DIR}/conf/custom.ini" << EOL
+[paths]
+data = ${GRAFANA_DIR}/data
+logs = ${GRAFANA_DIR}/data/log
+plugins = ${GRAFANA_DIR}/data/plugins
+provisioning = ${GRAFANA_DIR}/conf/provisioning
+
 [server]
-http_port = 3000
 protocol = http
+http_port = 3000
 
 [security]
 admin_user = admin
 admin_password = admin
-
-[paths]
-data = ${MONITORING_DIR}/data/grafana
-logs = ${MONITORING_DIR}/data/grafana/logs
-plugins = ${MONITORING_DIR}/data/grafana/plugins
-provisioning = ${GRAFANA_DIR}/conf/provisioning
 
 [auth.anonymous]
 enabled = true
 org_role = Viewer
 EOL
 
-    # Copy Grafana configurations
-    cp "${PROJECT_ROOT}/configs/grafana/provisioning/datasources/prometheus.yml" "${GRAFANA_DIR}/conf/provisioning/datasources/"
-    cp "${PROJECT_ROOT}/configs/grafana/provisioning/dashboards/video-enhancer.yml" "${GRAFANA_DIR}/conf/provisioning/dashboards/"
-    cp "${PROJECT_ROOT}/configs/grafana/dashboards/video_enhancer.json" "${GRAFANA_DIR}/dashboards/"
+    # Cleanup
+    rm -f "grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz"
+    rm -rf "grafana-${GRAFANA_VERSION}"
 }
 
 # Function to create start script
@@ -110,75 +120,31 @@ create_start_script() {
     echo "Creating start script..."
     cat > "${MONITORING_DIR}/start_monitoring.sh" << 'EOL'
 #!/bin/bash
-set -e
 
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-PROMETHEUS_DIR="${SCRIPT_DIR}/prometheus"
-GRAFANA_DIR="${SCRIPT_DIR}/grafana"
-
-# Function to cleanup on exit
-cleanup() {
-    echo "Stopping monitoring stack..."
-    kill $PROMETHEUS_PID $GRAFANA_PID 2>/dev/null || true
-}
-
-# Register cleanup function
-trap cleanup EXIT INT TERM
-
-# Cleanup any existing processes
-pkill prometheus || true
-pkill grafana-server || true
-sleep 2
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${SCRIPT_DIR}"
 
 # Start Prometheus
-echo "Starting Prometheus..."
-cd "${PROMETHEUS_DIR}"
-"${PROMETHEUS_DIR}/prometheus" \
-    --config.file="${PROMETHEUS_DIR}/prometheus.yml" \
-    --storage.tsdb.path="${SCRIPT_DIR}/data/prometheus" \
-    --web.listen-address="0.0.0.0:9090" \
-    --web.enable-lifecycle \
-    --web.enable-admin-api &
-PROMETHEUS_PID=$!
-
-# Wait for Prometheus to start
-echo "Waiting for Prometheus to start..."
-for i in {1..30}; do
-    if curl -s http://localhost:9090/-/healthy > /dev/null; then
-        echo "Prometheus is ready"
-        break
-    fi
-    sleep 1
-done
+./prometheus/prometheus \
+    --config.file=prometheus/prometheus.yml \
+    --storage.tsdb.path=data/prometheus \
+    --web.console.libraries=prometheus/console_libraries \
+    --web.console.templates=prometheus/consoles \
+    --web.listen-address=:9090 &
 
 # Start Grafana
-echo "Starting Grafana..."
-cd "${GRAFANA_DIR}"
-"${GRAFANA_DIR}/bin/grafana-server" \
-    --config="${GRAFANA_DIR}/conf/custom.ini" \
-    --homepath="${GRAFANA_DIR}" &
-GRAFANA_PID=$!
-
-# Wait for Grafana to start
-echo "Waiting for Grafana to start..."
-for i in {1..30}; do
-    if curl -s http://localhost:3000/api/health > /dev/null; then
-        echo "Grafana is ready"
-        break
-    fi
-    sleep 1
-done
+./grafana/bin/grafana server \
+    --homepath="${SCRIPT_DIR}/grafana" \
+    --config="${SCRIPT_DIR}/grafana/conf/custom.ini" \
+    &
 
 echo "Monitoring stack started!"
 echo "Prometheus: http://localhost:9090"
 echo "Grafana: http://localhost:3000 (login: admin/admin)"
 echo "Press Ctrl+C to stop..."
 
-# Wait for processes
-wait $PROMETHEUS_PID $GRAFANA_PID
+wait
 EOL
-
-    chmod +x "${MONITORING_DIR}/start_monitoring.sh"
 }
 
 # Main setup process

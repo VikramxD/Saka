@@ -1,4 +1,9 @@
-video_path,video_size,status,inference_time,total_time,ssim_score,output_size,output_url
-/home/jovyan/video-enhancer/videos/hxh.mp4,1582799,complete,74.92054080963135,75.6932122707367,,11229431,https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_9f9ddff8-cafe-4482-abe7-24eb34303f99.mp4
-/home/jovyan/video-enhancer/videos/one_piece.mp4,1433668,complete,91.5184395313263,92.2357542514801,,8514324,https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_59ea1d19-3e46-4daa-ad06-90b25ac79dc1.mp4
-/home/jovyan/video-enhancer/videos/dbz.mp4,3201384,complete,105.25426483154297,106.24054956436157,,23746327,https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_ff64f8fd-5b9a-486a-85ff-90ea56ae2190.mp4
+video_path,status,error,video_size,inference_time,total_time,ssim_score,output_size,output_url
+/home/jovyan/Saka/videos/low_rel.mp4,error,"500, message='{""detail"":""Batch size mismatch""}', url='http://localhost:8000/predict'",,,,,,
+/home/jovyan/Saka/videos/generated.mp4,error,"500, message='{""detail"":""Batch size mismatch""}', url='http://localhost:8000/predict'",,,,,,
+/home/jovyan/Saka/videos/input.mp4,unknown,,803228.0,0.0,0.03726768493652344,,0.0,
+/home/jovyan/Saka/videos/hxh.mp4,unknown,,1582799.0,0.0,0.06319761276245117,,0.0,
+/home/jovyan/Saka/videos/restore.mp4,unknown,,633614.0,0.0,0.022783517837524414,,0.0,
+/home/jovyan/Saka/videos/one_piece.mp4,unknown,,1433668.0,0.0,0.030046463012695312,,0.0,
+/home/jovyan/Saka/videos/low_res.mp4,unknown,,529257.0,0.0,0.022785663604736328,,0.0,
+/home/jovyan/Saka/videos/dbz.mp4,unknown,,3201384.0,0.0,0.0412900447845459,,0.0,

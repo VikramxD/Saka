@@ -10,5 +10,5 @@ providers:
     updateIntervalSeconds: 10
     allowUiUpdates: true
     options:
-      path: /home/jovyan/video-enhancer/monitoring/grafana/dashboards
+      path: /home/jovyan/Saka/monitoring/grafana/dashboards
       foldersFromFilesStructure: true
