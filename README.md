@@ -254,11 +254,6 @@ saka enhance video.mp4 --scale 4 --quality high --model anime</code></pre>
 
 <h2>&#128578; Acknowledgments</h2>
 
-<ul>
-    <li>Real-ESRGAN for the base upscaling models</li>
-    <li>LitServe team for the serving framework</li>
-    <li>The open-source community</li>
-</ul>
 
 <hr>
 
