@@ -1907,3 +1907,216 @@ AttributeError: 'list' object has no attribute 'get'
 2025-01-25 15:45:34 | INFO     | api.storage:__init__:21 - S3 handler initialized for bucket: diffusion-model-bucket
 2025-01-25 15:45:34 | INFO     | api.rabbitmq_handler:_connect:90 - Connected to RabbitMQ successfully
 2025-01-25 15:45:34 | INFO     | __mp_main__:setup:85 - Initialized API with device: cuda:0
+2025-01-30 15:56:46 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:56:46 | INFO     | scripts.realesrgan:setup_realesrgan:105 - Removing empty Real-ESRGAN directory...
+2025-01-30 15:56:46 | INFO     | scripts.realesrgan:setup_realesrgan:112 - Cloning Real-ESRGAN repository...
+2025-01-30 15:56:48 | INFO     | scripts.realesrgan:setup_realesrgan:129 - Installing dependencies with uv...
+2025-01-30 15:56:48 | INFO     | scripts.realesrgan:setup_realesrgan:138 - Installing Real-ESRGAN in editable mode...
+2025-01-30 15:56:49 | SUCCESS  | scripts.realesrgan:setup_realesrgan:146 - Real-ESRGAN setup completed successfully
+2025-01-30 15:56:49 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:56:49 | INFO     | __main__:setup:217 - Initialized API with device: cpu
+2025-01-30 15:58:21 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:58:21 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:58:21 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:58:21 | INFO     | __main__:setup:217 - Initialized API with device: cpu
+2025-01-30 15:59:46 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:59:46 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:59:46 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:59:46 | INFO     | __main__:setup:217 - Initialized API with device: cpu
+2025-01-30 15:59:46 | INFO     | __main__:main:336 - Starting API server with Prometheus metrics...
+2025-01-30 15:59:48 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:59:48 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:59:48 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:59:48 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:59:49 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:59:49 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:59:49 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:59:49 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 15:59:49 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 15:59:49 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 15:59:49 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 16:04:40 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_cf459360-e701-4577-aab4-b9accc77831a.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_2cd7b7e3-f6af-42ab-b5dd-d7fbf334fb57.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_ec823833-75f4-46ea-a83b-3e4ae6d1ff4c.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_42bcb661-dc72-40b7-9558-d9729e15e9e7.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_cf459360-e701-4577-aab4-b9accc77831a.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_2cd7b7e3-f6af-42ab-b5dd-d7fbf334fb57.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_ec823833-75f4-46ea-a83b-3e4ae6d1ff4c.mp4
+2025-01-30 16:04:41 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_42bcb661-dc72-40b7-9558-d9729e15e9e7.mp4
+2025-01-30 16:05:05 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_cc622c03-3bb9-438d-a546-5b89a64212ca.mp4
+2025-01-30 16:05:06 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_cc622c03-3bb9-438d-a546-5b89a64212ca.mp4
+2025-01-30 16:05:49 | INFO     | __main__:main:346 - Server shutdown complete
+2025-01-30 16:05:52 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 16:05:52 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 16:05:52 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 16:05:52 | INFO     | __main__:setup:217 - Initialized API with device: cpu
+2025-01-30 16:05:52 | INFO     | __main__:main:346 - Starting API server with Prometheus metrics...
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 16:05:55 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 16:05:55 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 16:05:55 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 16:05:55 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 16:05:55 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 16:05:55 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:__init__:183 - Initializing VideoUpscaler with settings: UpscalerSettings(
+  Model: realesr-animevideov3
+  Scale: 4x
+  Tile Size: 0
+  Face Enhance: False
+  Half Precision: True
+  Calculate SSIM: False
+  Output Dir: /home/jovyan/Saka/outputs
+  Real-ESRGAN Dir: /home/jovyan/Saka/Real-ESRGAN
+  Log Dir: /home/jovyan/Saka/logs
+  Input Path: Not set
+)
+2025-01-30 16:05:55 | INFO     | scripts.realesrgan:setup_realesrgan:108 - Real-ESRGAN repository already exists
+2025-01-30 16:05:55 | INFO     | api.storage:__init__:15 - S3 handler initialized for bucket: diffusion-model-bucket
+2025-01-30 16:05:55 | INFO     | __mp_main__:setup:217 - Initialized API with device: cuda:0
+2025-01-30 16:06:28 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_f8de0753-5c28-4195-b6cd-4ffd270f2e15.mp4
+2025-01-30 16:06:28 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_e2631fa7-93b7-4598-828d-8ef8d8d635c7.mp4
+2025-01-30 16:06:28 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_1fb0d6f7-426e-4543-b5c7-3352a885de17.mp4
+2025-01-30 16:06:28 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_1f570812-aced-4d13-ae85-4a6f42aa0371.mp4
+2025-01-30 16:06:29 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_f8de0753-5c28-4195-b6cd-4ffd270f2e15.mp4
+2025-01-30 16:06:29 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_e2631fa7-93b7-4598-828d-8ef8d8d635c7.mp4
+2025-01-30 16:06:29 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_1fb0d6f7-426e-4543-b5c7-3352a885de17.mp4
+2025-01-30 16:06:29 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_1f570812-aced-4d13-ae85-4a6f42aa0371.mp4
+2025-01-30 16:06:56 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_a5629749-5487-4221-b6f7-318a3eaeb54d.mp4
+2025-01-30 16:06:56 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_85a35120-5d36-4d70-8cf5-e4123a0cb6e3.mp4
+2025-01-30 16:06:56 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_bf837252-bcc8-4f8d-9215-713805eb3a74.mp4
+2025-01-30 16:06:57 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_a5629749-5487-4221-b6f7-318a3eaeb54d.mp4
+2025-01-30 16:06:57 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_85a35120-5d36-4d70-8cf5-e4123a0cb6e3.mp4
+2025-01-30 16:06:57 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_bf837252-bcc8-4f8d-9215-713805eb3a74.mp4
+2025-01-30 16:07:20 | INFO     | api.storage:upload_video:34 - Uploading video (2750710 bytes) to videos/enhanced_65b623be-d4c3-4790-b328-fb725e333cd5.mp4
+2025-01-30 16:07:21 | INFO     | api.storage:upload_video:46 - Upload complete: https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_65b623be-d4c3-4790-b328-fb725e333cd5.mp4
