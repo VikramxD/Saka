@@ -4,14 +4,14 @@ import time
 import tempfile
 import base64
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+import shutil
+from typing import Dict, Any, Optional, List
 import json
 import psutil
 import litserve as ls
 from fastapi import UploadFile, FastAPI
 from pydantic import BaseModel, Field, validator
 from datetime import datetime
-from models import VideoResponse, ProcessingMetrics, VideoRequest
 from scripts.realesrgan import VideoUpscaler
 from api.storage import S3Handler
 from configs.settings import get_settings
@@ -21,52 +21,17 @@ from prometheus_client import CollectorRegistry, Counter, Histogram, Gauge, mult
 from prometheus_client import make_asgi_app
 
 # Set up multiprocess mode for Prometheus
-os.environ["PROMETHEUS_MULTIPROC_DIR"] = "/tmp/prometheus_multiproc_dir"
-if not os.path.exists("/tmp/prometheus_multiproc_dir"):
-    os.makedirs("/tmp/prometheus_multiproc_dir")
+METRICS_DIR = "/tmp/prometheus_multiproc_dir"
+
+# Clean up old metrics files
+if os.path.exists(METRICS_DIR):
+    shutil.rmtree(METRICS_DIR)
+os.makedirs(METRICS_DIR, mode=0o777, exist_ok=True)
+os.environ["PROMETHEUS_MULTIPROC_DIR"] = METRICS_DIR
 
 # Create multiprocess registry
 registry = CollectorRegistry()
 multiprocess.MultiProcessCollector(registry)
-
-class VideoMetrics(BaseModel):
-    """Metrics for video processing."""
-    inference_time: float = Field(..., description="Time taken for model inference in seconds")
-    upload_time: float = Field(..., description="Time taken for S3 upload in seconds")
-    input_size: int = Field(..., description="Size of input video in bytes")
-    output_size: int = Field(..., description="Size of enhanced video in bytes")
-    ssim_score: Optional[float] = Field(None, description="SSIM quality score if calculated")
-
-class VideoRequest(BaseModel):
-    """Request model for video enhancement."""
-    video_data: str = Field(..., description="Base64 encoded video data")
-    calculate_ssim: bool = Field(False, description="Whether to calculate SSIM score")
-    
-    @validator('video_data')
-    def validate_video_data(cls, v):
-        try:
-            data = base64.b64decode(v)
-            if len(data) == 0:
-                raise ValueError("Empty video data")
-            return v
-        except Exception as e:
-            raise ValueError(f"Invalid base64 video data: {str(e)}")
-
-class VideoResponse(BaseModel):
-    """Response model for individual video enhancement request."""
-    status: str = Field(..., description="Status of the request (success/error)")
-    request_id: str = Field(..., description="Unique identifier for the request")
-    output_url: Optional[str] = Field(None, description="S3 URL of the enhanced video")
-    metrics: Optional[VideoMetrics] = Field(None, description="Processing metrics")
-    error: Optional[str] = Field(None, description="Error message if status is error")
-    timestamp: datetime = Field(default_factory=datetime.utcnow, description="Timestamp of the response")
-
-class BatchResponse(BaseModel):
-    """Response model for batch processing."""
-    batch_size: int = Field(..., description="Number of requests in the batch")
-    timestamp: datetime = Field(default_factory=datetime.utcnow, description="Timestamp of the batch response")
-    responses: List[VideoResponse] = Field(..., description="List of individual responses")
-    metrics: Dict[str, int] = Field(..., description="Batch-level metrics")
 
 class VideoEnhancerMetrics(ls.Logger):
     """Prometheus metrics logger for video enhancement service."""
@@ -74,16 +39,16 @@ class VideoEnhancerMetrics(ls.Logger):
     def __init__(self):
         super().__init__()
         
-        # Processing time metrics
+        # Processing time metrics (split by operation)
         self.processing_duration = Histogram(
             "video_processing_seconds",
             "Time spent processing video",
-            ["operation"],
+            ["operation"],  # inference/upload
             buckets=[1, 5, 10, 30, 60, 120, 300, 600],
             registry=registry
         )
         
-        # File size metrics
+        # Video size metrics
         self.video_size = Histogram(
             "video_size_bytes",
             "Video file size in bytes",
@@ -101,10 +66,9 @@ class VideoEnhancerMetrics(ls.Logger):
         )
         
         # SSIM metrics
-        self.ssim_score = Histogram(
+        self.ssim_score = Gauge(  # Changed to Gauge for current average
             "video_ssim_score",
             "SSIM quality score for enhanced videos",
-            buckets=[0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 0.98, 0.99, 1.0],
             registry=registry
         )
         
@@ -127,47 +91,38 @@ class VideoEnhancerMetrics(ls.Logger):
             registry=registry
         )
         
-        # Batch processing metrics
-        self.batch_size = Histogram(
-            "batch_size",
-            "Number of videos processed in each batch",
-            buckets=[1, 2, 4, 8, 16, 32],
-            registry=registry
-        )
-        
-        # Queue metrics
-        self.queue_size = Gauge(
-            "request_queue_size",
-            "Number of requests waiting in queue",
+        # Resolution metrics
+        self.resolution_scale = Histogram(
+            "resolution_scale_factor",
+            "Scale factor between input and output resolution",
+            buckets=[1, 2, 4, 8, 16],
             registry=registry
         )
 
     def process(self, key: str, value: Any):
         """Process metrics based on key-value pairs logged during processing."""
         
-        if key == "inference_time":
+        if key == "processing_time":
             self.processing_duration.labels(operation="inference").observe(value)
             
         elif key == "upload_time":
             self.processing_duration.labels(operation="upload").observe(value)
             
-        elif key == "input_size":
-            self.video_size.labels(type="input").observe(value)
-            
-        elif key == "output_size":
-            self.video_size.labels(type="output").observe(value)
+        elif key == "video_size":
+            if isinstance(value, dict):
+                if "input" in value:
+                    self.video_size.labels(type="input").observe(value["input"])
+                if "output" in value:
+                    self.video_size.labels(type="output").observe(value["output"])
             
         elif key == "request_status":
             self.requests_total.labels(status=value).inc()
             
         elif key == "ssim_score" and value is not None:
-            self.ssim_score.observe(value)
+            self.ssim_score.set(value)  # Using set instead of observe for current value
             
-        elif key == "batch_size":
-            self.batch_size.observe(value)
-            
-        elif key == "queue_size":
-            self.queue_size.set(value)
+        elif key == "resolution_scale" and value is not None:
+            self.resolution_scale.observe(value)
             
         # Update resource usage metrics
         self._update_resource_metrics()
@@ -194,19 +149,45 @@ class VideoEnhancerMetrics(ls.Logger):
         except Exception as e:
             logger.error(f"Error updating resource metrics: {e}")
 
+class VideoMetrics(BaseModel):
+    """Metrics for video processing."""
+    processing_time: float = Field(..., description="Time taken for model inference in seconds")
+    ram_usage_mb: float = Field(..., description="RAM usage in megabytes")
+    input_resolution: Dict[str, int] = Field(..., description="Input video resolution")
+    output_resolution: Dict[str, int] = Field(..., description="Output video resolution")
+    ssim_score: Optional[float] = Field(None, description="SSIM quality score if calculated")
+
+class VideoRequest(BaseModel):
+    """Request model for video enhancement."""
+    video_data: str = Field(..., description="Base64 encoded video data")
+    calculate_ssim: bool = Field(default=False, description="Whether to calculate SSIM score (computationally expensive)")
+    
+    @validator('video_data')
+    def validate_video_data(cls, v):
+        try:
+            data = base64.b64decode(v)
+            if len(data) == 0:
+                raise ValueError("Empty video data")
+            return v
+        except Exception as e:
+            raise ValueError(f"Invalid base64 video data: {str(e)}")
+
+class VideoResponse(BaseModel):
+    """Response model for video enhancement request."""
+    status: str = Field(..., description="Status of the request (success/error)")
+    output_url: Optional[str] = Field(None, description="S3 URL of the enhanced video")
+    metrics: Optional[VideoMetrics] = Field(None, description="Processing metrics")
+    model_settings: Dict[str, Any] = Field(..., description="Model settings used for enhancement")
+    error: Optional[str] = Field(None, description="Error message if status is error")
+    timestamp: datetime = Field(default_factory=datetime.utcnow, description="Timestamp of the response")
+
 class VideoEnhancerAPI(ls.LitAPI):
     """
-    Video enhancement API with batching support
+    Video enhancement API using Real-ESRGAN model.
 
     This class provides an API for processing video enhancement requests using the Real-ESRGAN model.
-    It includes methods for setting up dependencies, batched processing, and proper request/response handling.
-    The API supports uploading enhanced videos to S3 and calculating SSIM metrics.
+    It handles video upload, enhancement, and delivery of results through S3 storage.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.batch_size = 4
-        self.max_batch_wait_time = 0.5
 
     def setup(self, device: str):
         """Set up API dependencies."""
@@ -216,131 +197,163 @@ class VideoEnhancerAPI(ls.LitAPI):
         self.device = device
         logger.info(f"Initialized API with device: {device}")
 
-    def decode_request(self, request: VideoRequest) -> VideoRequest:
-        """Decode and validate the incoming request using the VideoRequest model."""
+    def decode_request(self, request: Dict[str, Any]) -> VideoRequest:
+        """Decode and validate the incoming request."""
         try:
-            if isinstance(request, dict):
-                request = VideoRequest.parse_obj(request)
-            return request
+            return VideoRequest.parse_obj(request)
         except Exception as e:
             logger.error(f"Error decoding request: {e}")
-            self.log("request_status", "decode_failed")
             raise ValueError(f"Failed to decode request: {e}")
 
-    def predict(self, batch: List[VideoRequest]) -> List[VideoResponse]:
-        """Process a batch of video enhancement requests."""
-        responses = []
-        self.log("batch_size", len(batch))
-        
-        for request in batch:
-            try:
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    temp_dir = Path(temp_dir)
-                    request_id = str(uuid.uuid4())
-                    
-                    # Save input video
-                    input_path = temp_dir / f"input_{request_id}.mp4"
-                    video_data = base64.b64decode(request.video_data)
-                    with open(input_path, "wb") as f:
-                        f.write(video_data)
-                    
-                    self.log("input_size", len(video_data))
-
-                    # Process video
-                    inference_start = time.time()
-                    result = self.upscaler.process_video(str(input_path))
-                    inference_time = time.time() - inference_start
-                    self.log("inference_time", inference_time)
-
-                    # Handle output
-                    output_path = result["video_url"] if isinstance(result, dict) else result
-                    if not output_path:
-                        raise ValueError("No output path in result")
-
-                    # Upload to S3
-                    upload_start = time.time()
-                    s3_path = f"videos/enhanced_{request_id}.mp4"
-                    output_url = self.s3.upload_video(Path(output_path), s3_path)
-                    upload_time = time.time() - upload_start
-                    self.log("upload_time", upload_time)
-
-                    # Calculate metrics
-                    video_size = Path(output_path).stat().st_size
-                    self.log("output_size", video_size)
-
-                    # Create metrics model
-                    metrics = VideoMetrics(
-                        inference_time=inference_time,
-                        upload_time=upload_time,
-                        input_size=len(video_data),
-                        output_size=video_size,
-                        ssim_score=result.get("ssim_score") if isinstance(result, dict) else None
-                    )
-
-                    # Create response model
-                    response = VideoResponse(
-                        status="success",
-                        request_id=request_id,
-                        output_url=output_url,
-                        metrics=metrics
-                    )
-                    self.log("request_status", "success")
-                
-            except Exception as e:
-                logger.error(f"Error processing request: {e}")
-                self.log("request_status", "failed")
-                response = VideoResponse(
-                    status="error",
-                    request_id=request_id,
-                    error=str(e)
-                )
-            
-            responses.append(response)
-        
-        return responses
-
-    def encode_response(self, responses) -> BatchResponse:
-        """Encode the response(s) using the BatchResponse model.
+    def predict(self, request: VideoRequest | List[VideoRequest]) -> Dict[str, Any] | List[Dict[str, Any]]:
+        """Process video enhancement request(s).
         
         Args:
-            responses: Either a single VideoResponse or a list of VideoResponse objects
-        """
-        # Convert single response to list if needed
-        if isinstance(responses, VideoResponse):
-            responses = [responses]
-        elif not isinstance(responses, list):
-            raise ValueError(f"Unexpected response type: {type(responses)}")
+            request: Single VideoRequest or list of VideoRequest objects
             
-        return BatchResponse(
-            batch_size=len(responses),
-            responses=responses,
-            metrics={
-                "success_count": sum(1 for r in responses if r.status == "success"),
-                "error_count": sum(1 for r in responses if r.status == "error")
-            }
-        )
+        Returns:
+            Single result dictionary or list of result dictionaries
+        """
+        # Handle batched requests
+        if isinstance(request, list):
+            return [self._process_single_request(req) for req in request]
+        
+        # Handle single request
+        return self._process_single_request(request)
+    
+    def _process_single_request(self, request: VideoRequest) -> Dict[str, Any]:
+        """Process a single video enhancement request."""
+        try:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                temp_dir = Path(temp_dir)
+                request_id = str(uuid.uuid4())
+                
+                # Save input video
+                input_path = temp_dir / f"input_{request_id}.mp4"
+                video_data = base64.b64decode(request.video_data)
+                with open(input_path, "wb") as f:
+                    f.write(video_data)
+
+                # Log input video size
+                self.log("video_size", {"input": len(video_data)})
+
+                # Process video
+                start_time = time.time()
+                self.settings.realesrgan.calculate_ssim = request.calculate_ssim
+                result = self.upscaler.process_video(str(input_path))
+                inference_time = time.time() - start_time
+                self.log("processing_time", inference_time)
+
+                # Upload to S3 if successful
+                if "video_url" in result:
+                    output_path = Path(result["video_url"])
+                    if output_path.exists():
+                        # Log output video size
+                        self.log("video_size", {"output": output_path.stat().st_size})
+                        
+                        # Upload to S3
+                        upload_start = time.time()
+                        s3_path = f"videos/enhanced_{request_id}.mp4"
+                        result["video_url"] = self.s3.upload_video(output_path, s3_path)
+                        upload_time = time.time() - upload_start
+                        self.log("upload_time", upload_time)
+
+                        # Log resolution scale
+                        if "input_resolution" in result and "output_resolution" in result:
+                            input_res = result["input_resolution"]
+                            output_res = result["output_resolution"]
+                            scale = output_res["width"] / input_res["width"]
+                            self.log("resolution_scale", scale)
+
+                # Log SSIM score if available
+                if "ssim_score" in result:
+                    self.log("ssim_score", result["ssim_score"])
+
+                # Log request status
+                self.log("request_status", "success")
+                return result
+
+        except Exception as e:
+            logger.error(f"Error processing video: {str(e)}")
+            self.log("request_status", "failure")
+            return {"error": str(e)}
+
+    def encode_response(self, result: Dict[str, Any]) -> VideoResponse:
+        """Encode the processing result into a standardized response.
+        
+        Args:
+            result: Raw processing result dictionary or error string
+            
+        Returns:
+            VideoResponse object
+        """
+        # Handle string error results
+        if isinstance(result, str):
+            return VideoResponse(
+                status="error",
+                error=result,
+                model_settings={},
+                timestamp=datetime.utcnow()
+            )
+            
+        # Handle dictionary results
+        try:
+            if "error" in result:
+                return VideoResponse(
+                    status="error",
+                    error=result["error"],
+                    model_settings={},
+                    timestamp=datetime.utcnow()
+                )
+
+            # Create metrics object
+            metrics = VideoMetrics(
+                processing_time=result.get("processing_time", 0),
+                ram_usage_mb=result.get("ram_usage_mb", 0),
+                input_resolution=result.get("input_resolution", {}),
+                output_resolution=result.get("output_resolution", {}),
+                ssim_score=result.get("ssim_score")
+            )
+
+            # Create success response
+            return VideoResponse(
+                status="success",
+                output_url=result["video_url"],
+                metrics=metrics,
+                model_settings=result.get("model_settings", {}),
+                timestamp=datetime.utcnow()
+            )
+
+        except Exception as e:
+            logger.error(f"Error encoding response: {str(e)}")
+            return VideoResponse(
+                status="error",
+                error=str(e),
+                model_settings={},
+                timestamp=datetime.utcnow()
+            )
 
 def main():
     """Main entry point for the Video Enhancer API."""
-    import argparse
-    import threading
-    
     settings = get_settings()
     api = VideoEnhancerAPI()
     api.setup("cpu")
+    
+    # Initialize Prometheus metrics
     prometheus_logger = VideoEnhancerMetrics()
     prometheus_logger.mount(path="/metrics", app=make_asgi_app(registry=registry))
     
-    # Create LitServer instance with Prometheus logger
     server = ls.LitServer(
         api,
         accelerator="auto",
         devices='auto',
         workers_per_device=settings.api.workers,
-        max_batch_size=16,
         track_requests=True,
         fast_queue=True,
-        loggers=[prometheus_logger]
+        loggers=[prometheus_logger],
+        max_batch_size=16,
+        batch_timeout=0.05,
+       
     )
     
     logger.info("Starting API server with Prometheus metrics...")

@@ -563,6 +563,14 @@ class VideoUpscaler:
 
         return result
 
+    def wait_for_output(self, output_path: Path, max_retries: int = 10, retry_delay: float = 1) -> bool:
+        for attempt in range(max_retries):
+            if output_path.exists() and output_path.stat().st_size > 0:
+                return True
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+        return False
+
 
 if __name__ == "__main__":
     try:
@@ -580,13 +588,7 @@ if __name__ == "__main__":
             input_path=input_path                # Set the input path
         )
         
-        # Perform one-time setup of Real-ESRGAN
-        # setup_realesrgan(settings.realesrgan_dir)
-        
-        # Create upscaler instance
         upscaler = VideoUpscaler(settings)
-        
-        # Process video
         result = upscaler.process_video(input_path)
         logger.info(f"Video processing completed: {json.dumps(result, indent=2)}")
             

@@ -1,0 +1,92 @@
+[
+  {
+    "status": 200,
+    "duration": 72.47523641586304,
+    "response": {
+      "status": "success",
+      "output_url": "https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_9c5e8505-5316-4a56-b5d2-7561cae1b17d.mp4",
+      "metrics": {
+        "processing_time": 71.57,
+        "ram_usage_mb": 478.5,
+        "input_resolution": {
+          "width": 640,
+          "height": 360
+        },
+        "output_resolution": {
+          "width": 2560,
+          "height": 1440
+        },
+        "ssim_score": null
+      },
+      "model_settings": {
+        "model_name": "realesr-animevideov3",
+        "scale": 4,
+        "tile": 0,
+        "face_enhance": false,
+        "fp32": false
+      },
+      "error": null,
+      "timestamp": "2025-01-30T21:22:09.114631"
+    }
+  },
+  {
+    "status": 200,
+    "duration": 189.2280306816101,
+    "response": {
+      "status": "success",
+      "output_url": "https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_6bd26414-ce68-4809-bacd-564fa1637681.mp4",
+      "metrics": {
+        "processing_time": 92.52,
+        "ram_usage_mb": 521.39,
+        "input_resolution": {
+          "width": 640,
+          "height": 360
+        },
+        "output_resolution": {
+          "width": 2560,
+          "height": 1440
+        },
+        "ssim_score": null
+      },
+      "model_settings": {
+        "model_name": "realesr-animevideov3",
+        "scale": 4,
+        "tile": 0,
+        "face_enhance": false,
+        "fp32": false
+      },
+      "error": null,
+      "timestamp": "2025-01-30T21:24:05.875312"
+    }
+  },
+  {
+    "status": 200,
+    "duration": 189.21898007392883,
+    "response": {
+      "status": "success",
+      "output_url": "https://diffusion-model-bucket.s3.ap-south-1.amazonaws.com/videos/enhanced_552f2937-3778-4d3e-b1d5-a4ad3710d388.mp4",
+      "metrics": {
+        "processing_time": 94.1,
+        "ram_usage_mb": 529.03,
+        "input_resolution": {
+          "width": 640,
+          "height": 342
+        },
+        "output_resolution": {
+          "width": 2560,
+          "height": 1368
+        },
+        "ssim_score": null
+      },
+      "model_settings": {
+        "model_name": "realesr-animevideov3",
+        "scale": 4,
+        "tile": 0,
+        "face_enhance": false,
+        "fp32": false
+      },
+      "error": null,
+      "timestamp": "2025-01-30T21:24:05.875358"
+    }
+  }
+]
