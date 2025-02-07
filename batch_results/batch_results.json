@@ -1,0 +1,69 @@
+{
+  "batch_statistics": {
+    "batch_summary": {
+      "total_videos": 1,
+      "successful": 1,
+      "failed": 0,
+      "success_rate_percent": 100.0
+    },
+    "timing_metrics": {
+      "average_processing_time": 202.69,
+      "average_total_time": 205.02,
+      "min_processing_time": 202.69,
+      "max_processing_time": 202.69
+    },
+    "quality_metrics": {
+      "average_ssim": 0.937,
+      "min_ssim": 0.937,
+      "max_ssim": 0.937
+    },
+    "system_metrics": {
+      "average_ram_usage_mb": 8254.91,
+      "peak_ram_usage_mb": 8254.91,
+      "average_gpu_memory_mb": 0.0
+    },
+    "batch_info": {
+      "start_time": "2025-02-07 14:46:28",
+      "end_time": "2025-02-07 14:46:28",
+      "total_duration_seconds": 0.62
+    }
+  },
+  "processed_videos": [
+    {
+      "video_path": "/home/jovyan/Saka/videos/Video Upscaler Anime.mp4",
+      "video_size": {
+        "bytes": 3819693,
+        "megabytes": 3.64
+      },
+      "status": "success",
+      "timing": {
+        "processing_time_seconds": 202.69,
+        "total_time_seconds": 205.02
+      },
+      "quality_metrics": {
+        "ssim_score": 0.937,
+        "resolution": {
+          "input": {
+            "width": 704,
+            "height": 1248
+          },
+          "output": {
+            "width": 2816,
+            "height": 4992
+          },
+          "scale_factor": 4
+        }
+      },
+      "system_metrics": {
+        "ram_usage_mb": 8254.91,
+        "gpu_memory_mb": 0
+      },
+      "model_info": {},
+      "output": {
+        "url": "https://sakaresults.s3.ap-south-1.amazonaws.com/videos/enhanced_9dcd94ee-d144-4a0e-a1a3-b41572d6ddbb.mp4",
+        "filename": "enhanced_9dcd94ee-d144-4a0e-a1a3-b41572d6ddbb.mp4"
+      },
+      "timestamp": "2025-02-07 14:46:28"
+    }
+  ]
+}

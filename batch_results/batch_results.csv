@@ -1,9 +1,2 @@
-video_path,status,error,video_size,inference_time,total_time,ssim_score,output_size,output_url
-/home/jovyan/Saka/videos/low_rel.mp4,error,"500, message='{""detail"":""Batch size mismatch""}', url='http://localhost:8000/predict'",,,,,,
-/home/jovyan/Saka/videos/generated.mp4,error,"500, message='{""detail"":""Batch size mismatch""}', url='http://localhost:8000/predict'",,,,,,
-/home/jovyan/Saka/videos/input.mp4,unknown,,803228.0,0.0,0.03726768493652344,,0.0,
-/home/jovyan/Saka/videos/hxh.mp4,unknown,,1582799.0,0.0,0.06319761276245117,,0.0,
-/home/jovyan/Saka/videos/restore.mp4,unknown,,633614.0,0.0,0.022783517837524414,,0.0,
-/home/jovyan/Saka/videos/one_piece.mp4,unknown,,1433668.0,0.0,0.030046463012695312,,0.0,
-/home/jovyan/Saka/videos/low_res.mp4,unknown,,529257.0,0.0,0.022785663604736328,,0.0,
-/home/jovyan/Saka/videos/dbz.mp4,unknown,,3201384.0,0.0,0.0412900447845459,,0.0,
+video_path,video_size,status,processing_time,total_time,ssim_score,input_resolution,output_resolution,ram_usage_mb,output_url,model_settings
+/home/jovyan/Saka/videos/Video Upscaler Anime.mp4,3819693,success,202.93428325653076,204.96706247329712,0.9374007086552856,"{'width': 704, 'height': 1248}","{'width': 2816, 'height': 4992}",8691.921875,https://sakaresults.s3.ap-south-1.amazonaws.com/videos/enhanced_993db1a9-4724-4c56-aea1-be8a1c07920a.mp4,"{'model_name': '4x UltraSharp', 'scale_factor': 4, 'calculate_ssim': True}"

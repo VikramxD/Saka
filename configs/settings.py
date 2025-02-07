@@ -2,8 +2,8 @@ from typing import List, Optional
 from pydantic_settings import BaseSettings
 from pydantic import Field
 from pathlib import Path
-from configs.realesrgan_settings import UpscalerSettings
 
+from configs.spandrel_settings import UpscalerSettings
 
 class PrometheusSettings(BaseSettings):
     prefix: str = Field("video_enhancer", description="Metric name prefix")
@@ -42,7 +42,7 @@ class S3Settings(BaseSettings):
     secret_key: str = Field('', description="AWS secret key or compatible S3 provider secret")
     endpoint_url: Optional[str] = Field(None, description="Optional: Custom S3 endpoint URL")
     region: str = Field("ap-south-1", description="S3 region")
-    bucket_name: str = Field("diffusion-model-bucket", description="S3 bucket name")
+    bucket_name: str = Field("sakaresults", description="S3 bucket name")
     storage_path: str = Field(".", description="Base path in bucket for storing videos")
     url_expiration: int = Field(3600, description="Presigned URL expiration time in seconds")
     upload_chunk_size: int = Field(8388608, description="Upload chunk size in bytes (8MB)")

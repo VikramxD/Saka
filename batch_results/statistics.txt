@@ -1,6 +1,35 @@
-total_videos: 8
-successful: 0
-failed: 8
-avg_inference_time: 0.00
-avg_total_time: 0.04
-avg_ssim: nan
+Batch Processing Summary
+======================
+
+Batch Summary
+-------------
+Total Videos: 1
+Successful: 1
+Failed: 0
+Success Rate Percent: 100.0
+
+Timing Metrics
+--------------
+Average Processing Time: 202.69
+Average Total Time: 205.02
+Min Processing Time: 202.69
+Max Processing Time: 202.69
+
+Quality Metrics
+---------------
+Average Ssim: 0.937
+Min Ssim: 0.937
+Max Ssim: 0.937
+
+System Metrics
+--------------
+Average Ram Usage Mb: 8254.91
+Peak Ram Usage Mb: 8254.91
+Average Gpu Memory Mb: 0.0
+
+Batch Info
+----------
+Start Time: 2025-02-07 14:46:28
+End Time: 2025-02-07 14:46:28
+Total Duration Seconds: 0.62
+

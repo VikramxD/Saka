@@ -1,0 +1,17 @@
+2025-02-07 14:16:07.790 | INFO     | __main__:main:269 - Starting batch inference with 4 concurrent requests
+2025-02-07 14:16:07.791 | INFO     | __main__:process_videos:115 - Found 1 videos to process
+2025-02-07 14:19:32.621 | INFO     | __main__:process_videos:154 - Processed Video Upscaler Anime.mp4: Time=203.06s, SSIM=0.937
+2025-02-07 14:19:32.623 | INFO     | __main__:main:276 - Batch processing completed in 204.83 seconds
+2025-02-07 14:19:32.628 | ERROR    | __main__:main:282 - Batch processing failed: 'seaborn' is not a valid package style, path of style file, URL of style file, or library style name (library styles are listed in `style.available`)
+2025-02-07 14:26:12.370 | INFO     | __main__:main:297 - Starting batch inference with 4 workers
+2025-02-07 14:26:12.371 | ERROR    | __main__:main:310 - Batch processing failed: No video files found in /path/to/videos
+2025-02-07 14:26:35.962 | INFO     | __main__:main:297 - Starting batch inference with 4 workers
+2025-02-07 14:26:35.963 | INFO     | __main__:process_videos:134 - Found 1 videos to process
+2025-02-07 14:30:00.951 | INFO     | __main__:process_videos:171 - Processed Video Upscaler Anime.mp4: Time=202.93s, SSIM=0.937
+2025-02-07 14:30:00.959 | INFO     | __main__:main:304 - Batch processing completed in 205.00 seconds
+2025-02-07 14:30:02.028 | INFO     | __main__:analyze_results:259 - Analysis results saved to batch_results
+2025-02-07 14:30:02.029 | INFO     | __main__:analyze_results:260 - Success rate: 1/1 (100.0%)
+2025-02-07 14:43:03.579 | INFO     | __main__:main:368 - Starting batch inference with 4 concurrent requests
+2025-02-07 14:43:03.580 | INFO     | __main__:process_videos:181 - Found 1 videos to process
+2025-02-07 14:46:28.613 | INFO     | __main__:main:375 - Batch processing completed in 205.03 seconds
+2025-02-07 14:46:28.625 | ERROR    | __main__:main:381 - Batch processing failed: "None of [Index(['processing_time', 'total_time'], dtype='object')] are in the [columns]"
